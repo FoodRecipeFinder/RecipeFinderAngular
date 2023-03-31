@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor = "let recipe of recipes">
+                    <tr *ngFor = "let recipe of filteredRecipes">
                         <td>
                             <img [src]="recipe.strMealThumb"
                             [style.width.px]="imageWidth"
