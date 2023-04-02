@@ -26,7 +26,7 @@ import { RecipePageGuard } from './recipe-page/recipe-page.guard';
         path: 'recipe/:id',
         canActivate: [RecipePageGuard],
         component: RecipePageComponent},
-      {path: '**', redirectTo:'/error',pathMatch:'full'}
+      {path: '**', redirectTo:'/home',pathMatch:'full'}
     ])
 
   ],
