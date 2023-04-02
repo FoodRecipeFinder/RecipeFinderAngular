@@ -1,1 +1,55 @@
-<p>recipe-page works!</p>
+<div class="card">
+    <div class="card-header">
+        {{recipe?.strMeal}}
+    </div>
+    <div class="card-body">
+        <div>
+            <img [src]="recipe?.strMealThumb" width="100px"/>
+        </div>
+        <div>
+            Category:
+            {{recipe?.strCategory}}
+        </div>
+        <div>
+            <div>
+                Instructions
+            </div>
+            {{recipe?.strInstructions}}
+        </div>
+        <div>
+            <div>
+                Ingredients
+            </div>
+
+            <div *ngIf="recipe?.strIngredient1">{{recipe?.strIngredient1}} : {{recipe?.strMeasure1}}</div>
+            <div *ngIf="recipe?.strIngredient2">{{recipe?.strIngredient2}} : {{recipe?.strMeasure2}}</div>
+            <div *ngIf="recipe?.strIngredient3">{{recipe?.strIngredient3}} : {{recipe?.strMeasure3}}</div>
+            <div *ngIf="recipe?.strIngredient4">{{recipe?.strIngredient4}} : {{recipe?.strMeasure4}}</div>
+            <div *ngIf="recipe?.strIngredient5">{{recipe?.strIngredient5}} : {{recipe?.strMeasure5}}</div>
+            <div *ngIf="recipe?.strIngredient6">{{recipe?.strIngredient6}} : {{recipe?.strMeasure6}}</div>
+            <div *ngIf="recipe?.strIngredient7">{{recipe?.strIngredient7}} : {{recipe?.strMeasure7}}</div>
+            <div *ngIf="recipe?.strIngredient8">{{recipe?.strIngredient8}} : {{recipe?.strMeasure8}}</div>
+            <div *ngIf="recipe?.strIngredient9">{{recipe?.strIngredient9}} : {{recipe?.strMeasure9}}</div>
+            <div *ngIf="recipe?.strIngredient10">{{recipe?.strIngredient10}} : {{recipe?.strMeasure10}}</div>
+            <div *ngIf="recipe?.strIngredient11">{{recipe?.strIngredient11}} : {{recipe?.strMeasure11}}</div>
+            <div *ngIf="recipe?.strIngredient12">{{recipe?.strIngredient12}} : {{recipe?.strMeasure12}}</div>
+            <div *ngIf="recipe?.strIngredient13">{{recipe?.strIngredient13}} : {{recipe?.strMeasure13}}</div>
+            <div *ngIf="recipe?.strIngredient14">{{recipe?.strIngredient14}} : {{recipe?.strMeasure14}}</div>
+            <div *ngIf="recipe?.strIngredient15">{{recipe?.strIngredient15}} : {{recipe?.strMeasure15}}</div>
+            <div *ngIf="recipe?.strIngredient16">{{recipe?.strIngredient16}} : {{recipe?.strMeasure16}}</div>
+            <div *ngIf="recipe?.strIngredient17">{{recipe?.strIngredient17}} : {{recipe?.strMeasure17}}</div>
+            <div *ngIf="recipe?.strIngredient18">{{recipe?.strIngredient18}} : {{recipe?.strMeasure18}}</div>
+            <div *ngIf="recipe?.strIngredient19">{{recipe?.strIngredient19}} : {{recipe?.strMeasure19}}</div>
+            <div *ngIf="recipe?.strIngredient20">{{recipe?.strIngredient20}} : {{recipe?.strMeasure20}}</div>
+        </div>
+        
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-outline-secondary"
+                style="width: 80px"
+                (click)="onBack()">
+            <i class="fa fa-chevron-left"></i> Back
+
+        </button>
+    </div>
+</div>

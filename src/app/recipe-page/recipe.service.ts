@@ -8,28 +8,11 @@ import { recipe } from "./recipe";
     providedIn:'root'
 })
 export class RecipeService{
-    private url = 'http://localhost:8080/api/mealDB/random';
+    private url = 'http://localhost:8080/api/mealDB';
     constructor(private http:HttpClient){}
 
     getRecipes(): Observable<meals>{
-    //     return [
-    //         {
-    //             "idMeal": 52879,
-    //             "strMeal": "Chicken Parmentier",
-    //             "strCategory": "Chicken",
-    //             "strArea": "French",
-    //             "strMealThumb": "https://www.themealdb.com/images/media/meals/uwvxpv1511557015.jpg",
-    //           },
-    //           {
-    //             "idMeal": 52835,
-    //             "strMeal": "Fettucine alfredo",
-    //             "strCategory": "Pasta",
-    //             "strArea": "Italian",
-    //             "strMealThumb": "https://www.themealdb.com/images/media/meals/uquqtu1511178042.jpg",
-    //           }
-    //     ]
-    // }
-        return this.http.get<meals>(this.url).pipe(
+        return this.http.get<meals>(this.url+"/search?name=chicken").pipe(
             tap( data => console.log('ALL',JSON.stringify(data))),
             catchError(this.handleError)
         );

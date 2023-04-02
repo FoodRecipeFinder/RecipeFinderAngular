@@ -31,7 +31,11 @@
                             [style.width.px]="imageWidth"
                             [style.margin.px]="imageMargin">
                         </td>
-                        <td>{{ recipe.strMeal }}</td>
+                        <td>
+                            <a [routerLink]="['/recipe',recipe.idMeal]" [state]="recipe">
+                                {{ recipe.strMeal }}
+                            </a>
+                        </td>
                         <td>{{recipe.strCategory}}</td>
                         <td>{{recipe.strArea}}</td>
                     </tr>

@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
+import { RouterModule } from '@angular/router';
+import { RecipePageGuard } from './recipe-page/recipe-page.guard';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,15 @@ import { RecipePageComponent } from './recipe-page/recipe-page.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot([
+      {path: 'home',component: HomeComponent},
+      {
+        path: 'recipe/:id',
+        canActivate: [RecipePageGuard],
+        component: RecipePageComponent},
+      {path: '**', redirectTo:'/error',pathMatch:'full'}
+    ])
 
   ],
   providers: [],
