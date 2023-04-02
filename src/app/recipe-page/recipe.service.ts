@@ -12,8 +12,15 @@ export class RecipeService{
     constructor(private http:HttpClient){}
 
     getRecipes(): Observable<meals>{
-        return this.http.get<meals>(this.url+"/search?name=chicken").pipe(
+        return this.http.get<meals>(this.url+"/random").pipe(
             tap( data => console.log('ALL',JSON.stringify(data))),
+            catchError(this.handleError)
+        );
+    }
+
+    getRecipesByName(name:string): Observable<meals>{
+        return this.http.get<meals>(this.url+"/search?name="+name).pipe(
+            tap( data => console.log('search for '+name,JSON.stringify(data))),
             catchError(this.handleError)
         );
     }
