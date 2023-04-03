@@ -8,12 +8,16 @@ import { HomeComponent } from './home/home.component';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
 import { RouterModule } from '@angular/router';
 import { RecipePageGuard } from './recipe-page/recipe-page.guard';
+import { UserLoginComponent } from './user-login/user-login.component';
+import { SavedRecipesComponent } from './saved-recipes/saved-recipes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RecipePageComponent,
+    UserLoginComponent,
+    SavedRecipesComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,10 @@ import { RecipePageGuard } from './recipe-page/recipe-page.guard';
         path: 'recipe/:id',
         canActivate: [RecipePageGuard],
         component: RecipePageComponent},
+
+        {path : 'login',component:UserLoginComponent},
+        {path : 'savedRecipes',component:SavedRecipesComponent},
+
       {path: '**', redirectTo:'/home',pathMatch:'full'}
     ])
 

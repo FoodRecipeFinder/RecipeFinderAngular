@@ -1,0 +1,14 @@
+<p>saved-recipes works!</p>
+
+<table class="tabletable-bordered">
+<tr>
+    <th>id</th>
+    <th>mealId</th>
+</tr>
+<tbody>
+    <tr *ngFor="let s of savedRecipes">
+        <td>{{s.id}}</td>
+        <td>{{s.mealId}}</td>
+    </tr>
+</tbody>
+</table>
