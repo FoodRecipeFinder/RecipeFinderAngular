@@ -9,6 +9,7 @@ import { recipe } from "./recipe";
     providedIn:'root'
 })
 export class RecipeService{
+
     private url = 'http://localhost:8080/api/mealDB';
     constructor(private http:HttpClient, private progressBarService: ProgressBarService){}
 

@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
 import { RecipePageGuard } from './recipe-page/recipe-page.guard';
 import { NgProgressModule } from 'ngx-progressbar';
 import { HeaderComponent } from './header/header.component';
+import { UserLoginComponent } from './user-login/user-login.component';
+import { SavedRecipesComponent } from './saved-recipes/saved-recipes.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { HeaderComponent } from './header/header.component';
     HomeComponent,
     RecipePageComponent,
     HeaderComponent,
+    UserLoginComponent,
+    SavedRecipesComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +34,10 @@ import { HeaderComponent } from './header/header.component';
         path: 'recipe/:id',
         canActivate: [RecipePageGuard],
         component: RecipePageComponent},
+
+        {path : 'login',component:UserLoginComponent},
+        {path : 'savedRecipes',component:SavedRecipesComponent},
+
       {path: '**', redirectTo:'/home',pathMatch:'full'}
     ])
 
