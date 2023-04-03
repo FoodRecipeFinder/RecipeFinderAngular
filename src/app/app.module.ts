@@ -30,8 +30,10 @@ import { SavedRecipesComponent } from './saved-recipes/saved-recipes.component';
         path: 'recipe/:id',
         canActivate: [RecipePageGuard],
         component: RecipePageComponent},
+
         {path : 'login',component:UserLoginComponent},
         {path : 'savedRecipes',component:SavedRecipesComponent},
+
       {path: '**', redirectTo:'/home',pathMatch:'full'}
     ])
 
