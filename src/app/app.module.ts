@@ -8,6 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
 import { RouterModule } from '@angular/router';
 import { RecipePageGuard } from './recipe-page/recipe-page.guard';
+import { NgProgressModule } from 'ngx-progressbar';
+import { HeaderComponent } from './header/header.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { SavedRecipesComponent } from './saved-recipes/saved-recipes.component';
 
@@ -16,6 +18,7 @@ import { SavedRecipesComponent } from './saved-recipes/saved-recipes.component';
     AppComponent,
     HomeComponent,
     RecipePageComponent,
+    HeaderComponent,
     UserLoginComponent,
     SavedRecipesComponent
   ],
@@ -24,6 +27,7 @@ import { SavedRecipesComponent } from './saved-recipes/saved-recipes.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    NgProgressModule,
     RouterModule.forRoot([
       {path: 'home',component: HomeComponent},
       {

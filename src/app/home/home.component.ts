@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit , OnDestroy{
     this._listFilter = value;
     this.filteredRecipes = this.performFilter(value);
   }
-  recipes:recipe[] = []
+  recipes:recipe[] = [];
   searchRecipes:recipe[] = [];
 
   ngOnInit(): void {
@@ -36,8 +36,6 @@ export class HomeComponent implements OnInit , OnDestroy{
       },
       error: err => this.errorMessage = err
     });
-      // this.recipes = this.recipeService.getRecipes();
-      // this.filteredRecipes = this.recipes;
   }
 
   ngOnDestroy(): void {

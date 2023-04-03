@@ -39,7 +39,7 @@
                             [style.margin.px]="imageMargin">
                         </td>
                         <td>
-                            <a [routerLink]="['/recipe',recipe.idMeal]" [state]="recipe">
+                            <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
                                 {{ recipe.strMeal }}
                             </a>
                         </td>
@@ -71,7 +71,7 @@
                                 [style.margin.px]="imageMargin">
                             </td>
                             <td>
-                                <a [routerLink]="['/recipe',recipe.idMeal]" [state]="recipe">
+                                <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
                                     {{ recipe.strMeal }}
                                 </a>
                             </td>
