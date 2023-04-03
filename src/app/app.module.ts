@@ -8,18 +8,22 @@ import { HomeComponent } from './home/home.component';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
 import { RouterModule } from '@angular/router';
 import { RecipePageGuard } from './recipe-page/recipe-page.guard';
+import { NgProgressModule } from 'ngx-progressbar';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RecipePageComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    NgProgressModule,
     RouterModule.forRoot([
       {path: 'home',component: HomeComponent},
       {
