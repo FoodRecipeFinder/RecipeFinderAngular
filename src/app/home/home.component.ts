@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit , OnDestroy{
   errorMessage: string = '';
   sub!: Subscription;
 
+  search:string='';
+
   private _listFilter:string = '';
   get listFilter(): string{
     return this._listFilter;
@@ -24,6 +26,7 @@ export class HomeComponent implements OnInit , OnDestroy{
     this.filteredRecipes = this.performFilter(value);
   }
   recipes:recipe[] = []
+  searchRecipes:recipe[] = [];
 
   ngOnInit(): void {
     this.sub = this.recipeService.getRecipes().subscribe({
@@ -46,5 +49,15 @@ export class HomeComponent implements OnInit , OnDestroy{
   performFilter(filterBy: string) :recipe[]{
     filterBy = filterBy.toLowerCase();
     return this.recipes.filter((recipe : recipe )=>recipe.strMeal.toLowerCase().includes(filterBy));
+  }
+
+  searchRecipe(): void{
+    this.sub = this.recipeService.getRecipesByName(this.search).subscribe({
+      next : recipes => {
+        this.searchRecipes = recipes.meals;
+        // this.filteredRecipes = this.recipes;
+      },
+      error: err => this.errorMessage = err
+    });
   }
 }

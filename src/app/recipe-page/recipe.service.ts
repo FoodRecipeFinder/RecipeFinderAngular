@@ -8,12 +8,19 @@ import { recipe } from "./recipe";
     providedIn:'root'
 })
 export class RecipeService{
-    private url = 'http://localhost:8080/api/mealDB';
+    private url = 'http://localhost:9090/api/mealDB';
     constructor(private http:HttpClient){}
 
     getRecipes(): Observable<meals>{
-        return this.http.get<meals>(this.url+"/search?name=chicken").pipe(
+        return this.http.get<meals>(this.url+"/random").pipe(
             tap( data => console.log('ALL',JSON.stringify(data))),
+            catchError(this.handleError)
+        );
+    }
+
+    getRecipesByName(name:string): Observable<meals>{
+        return this.http.get<meals>(this.url+"/search?name="+name).pipe(
+            tap( data => console.log('search for '+name,JSON.stringify(data))),
             catchError(this.handleError)
         );
     }
