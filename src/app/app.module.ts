@@ -30,13 +30,9 @@ import { SavedRecipesComponent } from './saved-recipes/saved-recipes.component';
     NgProgressModule,
     RouterModule.forRoot([
       {path: 'home',component: HomeComponent},
-      {
-        path: 'recipe/:id',
-        canActivate: [RecipePageGuard],
-        component: RecipePageComponent},
-        {path : 'login',component:UserLoginComponent},
-        {path : 'savedRecipes',component:SavedRecipesComponent},
-
+      {path: 'recipe/:id',canActivate: [RecipePageGuard],component: RecipePageComponent},
+      {path: 'login',component:UserLoginComponent},
+      {path: 'savedRecipes',component:SavedRecipesComponent},
       {path: '**', redirectTo:'/home',pathMatch:'full'}
     ])
 
