@@ -1,85 +1,156 @@
-<div class="card">
-    <div class="card-header">
+<div class="">
+    <!-- <div class="card-header">
         Recipe List
-    </div>
+    </div> --> 
+    <br/>
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-1">Filter By:</div>
-            <div class="col-md-2">
-                <input type="text" [(ngModel)]="listFilter" />
-            </div>
-            <div class="col-md-1">Search By:</div>
-            <div class="col-md-2">
-                <input type="text" [(ngModel)]="search" />
-            </div>
-            <div class="col-md-1">
-                <button class="btn btn-outline-primary" (click)="searchRecipe()">Search</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <h4>Saved List</h4>
-            </div>
-        </div>
-        <div class="table-responsive">
-            <table class="table" *ngIf="recipes.length">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Cuisine</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor = "let recipe of filteredRecipes">
-                        <td>
-                            <img [src]="recipe.strMealThumb"
-                            [style.width.px]="imageWidth"
-                            [style.margin.px]="imageMargin">
-                        </td>
-                        <td>
-                            <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
-                                {{ recipe.strMeal }}
-                            </a>
-                        </td>
-                        <td>{{recipe.strCategory}}</td>
-                        <td>{{recipe.strArea}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="row" *ngIf="searchRecipes.length">
-                <div class="col-md-6">
-                    <h4>Search</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="selectedData['a']" (ngModelChange)="getRecipeByData('a')">
+                        <option value="" disabled selected>Cuisine</option>
+                        <option *ngFor="let a of areas">{{a.strArea}}</option>
+                    </select>
                 </div>
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="selectedData['c']" (ngModelChange)="getRecipeByData('c')">
+                        <option value="" disabled selected>Category</option>
+                        <option *ngFor="let c of categories">{{c.strCategory}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="selectedData['i']" (ngModelChange)="getRecipeByData('i')">
+                        <option value="" disabled selected>Main Ingredient</option>
+                        <option *ngFor="let i of ingredients">{{i.strIngredient}}</option>
+                    </select>
+                </div>
+                <div class="col-md-1 offset-md-2">Search:</div>
+                <div class="col-md-2">
+                    <input type="text" [(ngModel)]="search" />
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-outline-primary" (click)="searchRecipe()">Search</button>
+                </div>
+                <!-- <div class="col-md-1 offset-md-4">
+                    <button class="btn btn-outline-danger">Clear</button>
+                </div> -->
             </div>
-            <div class="table-responsive">
-                <table class="table" *ngIf="searchRecipes.length">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Cuisine</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor = "let recipe of searchRecipes">
-                            <td>
-                                <img [src]="recipe.strMealThumb"
-                                [style.width.px]="imageWidth"
-                                [style.margin.px]="imageMargin">
-                            </td>
-                            <td>
+            <br/>
+            <div class="row justify-content-end">
+                <div class="table-responsive search-table col-sm-8" *ngIf="!searchRecipes.length">
+                    <br/>
+                    <div class="container trivia">
+                        <h4>{{trivia}}</h4>
+                    </div>
+                    <br/>
+                    <div class="card text-center random-card">
+                        <a [routerLink]="['/recipe',randomRecipe.idMeal]" target="_blank">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img class="card-img-bottom" [src]="randomRecipe.strMealThumb"/>
+                                </div>
+                                <div class="col-md-6 align-self-center">
+                                    <div class="card-body random-card-body">
+                                        <h6 class="card-title recipe-title random-card-title">{{randomRecipe.strMeal}}</h6>
+                                        <p class="card-text text-muted">{{randomRecipe.strArea}} {{randomRecipe.strCategory}}</p>
+                                    </div>
+                                    <!-- <div class="card-footer">
+                                        <small class="text-muted">source</small>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive search-table col-sm-8" *ngIf="searchRecipes.length">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Search</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card-columns">
+                            <div class="card text-center" *ngFor="let recipe of searchRecipes">
                                 <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
-                                    {{ recipe.strMeal }}
+                                    <img class="card-img-top" [src]="recipe.strMealThumb"
+                                     />
+                                
+                                    <div class="card-body">
+                                        <h6 class="card-title recipe-title">{{recipe.strMeal}}</h6>
+                                    </div>
+                                    <!-- <div class="card-img-overlay">
+                                        <h6 class="card-title" style="color: white; font-size: 20px;">{{recipe.strMeal}}</h6>
+                                    </div> -->
                                 </a>
-                            </td>
-                            <td>{{recipe.strCategory}}</td>
-                            <td>{{recipe.strArea}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--. <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Cuisine</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor = "let recipe of searchRecipes">
+                                <td>
+                                    <img [src]="recipe.strMealThumb"
+                                    [style.width.px]="imageWidth"
+                                    [style.margin.px]="imageMargin /">
+                                </td>
+                                <td>
+                                    <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
+                                        {{ recipe.strMeal }}
+                                    </a>
+                                </td>
+                                <td>{{recipe.strCategory}}</td>
+                                <td>{{recipe.strArea}}</td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                </div>
+                <div class="table-responsive saved-table col-sm-4" *ngIf="recipes.length">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Saved List</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">Filter By:</div>
+                        <div class="col-md-6">
+                            <input type="text" [(ngModel)]="listFilter" />
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <!-- <th>Cuisine</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor = "let recipe of filteredRecipes">
+                                <td>
+                                    <img [src]="recipe.strMealThumb"
+                                    [style.width.px]="imageWidth"
+                                    [style.margin.px]="imageMargin">
+                                </td>
+                                <td>
+                                    <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
+                                        {{ recipe.strMeal }}
+                                    </a>
+                                </td>
+                                <td>{{recipe.strCategory}}</td>
+                                <!-- <td>{{recipe.strArea}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
