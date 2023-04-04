@@ -14,7 +14,7 @@ export class RecipePageComponent implements OnInit {
   recipe: recipe | undefined;
   sub!: Subscription;
   errorMessage = '';
-  mealId : number =0;
+  mealId : number | undefined;
   userId : number = 1008;
   value : boolean | undefined;
   btnText : String='';
