@@ -12,3 +12,7 @@ export interface Ingredient{
 export interface Category{
     strCategory:String
 }
+
+export interface SpoonText{
+    text:string;
+}

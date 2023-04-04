@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
-import { Area, Category, Ingredient } from './Dto';
+import { Area, Category, Ingredient, SpoonText } from './Dto';
 import { ProgressBarService } from './progress-bar.service';
 
 @Injectable({
@@ -34,7 +34,17 @@ export class DataService {
           this.progressBarService.stopLoading();
         }),
         // catchError(this.handleError)
-    );
-    
+    );  
   }
+
+  getTrivia(): Observable<SpoonText>{
+    return this.http.get<SpoonText>("http://localhost:8080/api/spoonacular/trivia").pipe(
+        tap( data => {
+          console.log('Area',JSON.stringify(data));
+          this.progressBarService.stopLoading();
+        }),
+        // catchError(this.handleError)
+    );  
+  }
+
 }
