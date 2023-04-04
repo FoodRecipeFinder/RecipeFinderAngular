@@ -42,9 +42,12 @@
             <div *ngIf="recipe?.strIngredient19">{{recipe?.strIngredient19}} : {{recipe?.strMeasure19}}</div>
             <div *ngIf="recipe?.strIngredient20">{{recipe?.strIngredient20}} : {{recipe?.strMeasure20}}</div>
         </div>
-        
+    
+        <button class="btn btn-primary" name="saveButton" id="saveButton" (click)="saveRecipe()">{{btnText}}</button>
     </div>
     <div class="card-footer">
+
+        
         <!-- <button class="btn btn-outline-secondary"
                 style="width: 80px"
                 (click)="onBack()">

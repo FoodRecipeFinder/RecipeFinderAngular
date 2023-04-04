@@ -1,14 +1,27 @@
-<p>saved-recipes works!</p>
 
-<table class="tabletable-bordered">
-<tr>
-    <th>id</th>
-    <th>mealId</th>
-</tr>
-<tbody>
-    <tr *ngFor="let s of savedRecipes">
-        <td>{{s.id}}</td>
-        <td>{{s.mealId}}</td>
-    </tr>
-</tbody>
+<table class="table" >
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Cuisine</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let recipe of recipeDetails">
+            <td>
+                <img [src]="recipe.strMealThumb" style="width: 150px;margin-left: 10px;">
+            </td>
+            <td>
+                <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
+                    {{ recipe.strMeal }}
+                </a>
+            </td>
+            <td>{{recipe.strCategory}}</td>
+            <td>{{recipe.strArea}}</td>
+
+            <td><button class="btn btn-primary" (click)="removeRecipe(recipe.idMeal)">Remove</button></td>
+        </tr>
+    </tbody>
 </table>
