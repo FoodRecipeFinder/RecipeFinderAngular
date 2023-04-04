@@ -7,3 +7,28 @@
     width:66%;
     display: inline-block;
 } */
+.card{
+    display: inline-block;
+    width: 30%;
+    margin: 1%;
+}
+.recipe-title{
+    color: black;
+}
+a{
+    text-decoration: none;
+}
+.trivia{
+ font-family: 'Times New Roman', Times, serif;
+ font-style: italic;   
+}
+.random-card{
+    width: 98%;
+    margin: 1%;
+    background-color: black;
+}
+.random-card-title{
+    font-size: 50px;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+}
