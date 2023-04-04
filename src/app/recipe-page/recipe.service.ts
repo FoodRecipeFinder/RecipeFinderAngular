@@ -42,6 +42,19 @@ export class RecipeService{
         );
     }
 
+    getRecipesByData(type:string,name:string): Observable<meals>{
+        this.progressBarService.startLoading();
+        return this.http.get<meals>(this.url+"/filter/"+type+"?name="+name).pipe(
+            tap( data => {
+                console.log('filter for '+name,JSON.stringify(data));
+                this.progressBarService.stopLoading();
+                this.progressBarService.setSuccess();
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+
     private handleError( err:HttpErrorResponse ){
         this.progressBarService.stopLoading();
         let errorMessage = '';
