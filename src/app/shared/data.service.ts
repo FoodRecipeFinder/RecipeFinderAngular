@@ -40,7 +40,7 @@ export class DataService {
   }
 
   getTrivia(): Observable<SpoonText>{
-    return this.http.get<SpoonText>(this.mealDBUrl+"/trivia").pipe(
+    return this.http.get<SpoonText>(this.spoonUrl+"/trivia").pipe(
         tap( data => {
           console.log('Area',JSON.stringify(data));
           this.progressBarService.stopLoading();
