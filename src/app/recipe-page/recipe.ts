@@ -52,4 +52,22 @@ export interface recipe {
     strImageSource: string,
     strCreativeCommonsConfirmed: string,
     dateModified: string
-}   
+}
+
+interface quantity{
+    value: number,
+    unit: string,
+    confidenceRange95Percent:{
+        min: number,
+        max: number
+    }
+    standardDeviation: number
+}
+
+export interface nutrition{
+    recipesUsed: number,
+    calories: quantity,
+    fat: quantity,
+    protein: quantity,
+    carbs: quantity
+}

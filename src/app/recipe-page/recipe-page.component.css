@@ -24,3 +24,17 @@ ul{
     padding-left:1em !important;
     margin-left:1em;
 }
+.recommend-card{
+    display: inline-block;
+    width: 18%;
+    margin: 0 1% 0% 1%;
+}
+.recommend-title{
+    color: black;
+}
+a{
+    text-decoration: none;
+}
+.nutrition{
+    font-weight: 500;
+}

@@ -1,7 +1,7 @@
-import { Component, InjectFlags, OnInit } from '@angular/core';
+import { Component, InjectFlags, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { recipe } from './recipe';
+import { nutrition, recipe } from './recipe';
 import { RecipeService } from './recipe.service';
 import { LoginService } from '../login-service.service';
 
@@ -10,16 +10,19 @@ import { LoginService } from '../login-service.service';
   templateUrl: './recipe-page.component.html',
   styleUrls: ['./recipe-page.component.css']
 })
-export class RecipePageComponent implements OnInit {
-  recipe: recipe | undefined;
+export class RecipePageComponent implements OnInit , OnDestroy{
+  recipe!: recipe;
+  recommendRecipes: recipe[] =[];
+  nutritionRecipe: nutrition | undefined;
   sub!: Subscription;
+  nestedSub!: Subscription;
   errorMessage = '';
   mealId : number | undefined;
   userId : number = 1008;
   value : boolean | undefined;
   btnText : String='';
-
   saveButton:boolean | undefined;
+  
   constructor(private route: ActivatedRoute, private router: Router, private recipeService: RecipeService,private service : LoginService){}
   
   ngOnInit(): void{
@@ -28,15 +31,34 @@ export class RecipePageComponent implements OnInit {
     this.sub = this.recipeService.getRecipeById(id).subscribe({
       next : recipes => {
         this.recipe = recipes.meals[0];
+        let search = this.recipe.strTags.split(',')[0]
+        if(!search){
+          search = this.recipe.strCategory;
+        }
+        this.nestedSub = this.recipeService.getRecipesByName(search).subscribe({
+          next : meal => {
+            this.recommendRecipes = meal.meals.slice(0,5);
+          },
+          error: err => this.errorMessage = err
+        });
+        this.nestedSub = this.recipeService.getNutritionByName(this.recipe.strMeal).subscribe({
+          next : nut => {
+            
+            this.nutritionRecipe = nut;
+            console.log("nutr",nut)
+          },
+          error: err => this.errorMessage = err
+        });
         this.checkIfSaved();
       },
       error: err => this.errorMessage = err
-
     });
-
-   
   }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+    this.nestedSub.unsubscribe();
+  }
   
   checkIfSaved(){
      this.service.checkIfSaved(this.userId,this.recipe?.idMeal!).subscribe(
