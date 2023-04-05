@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { savedRecipesDTO } from './saved-recipes/savedRecipesDTO';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private url = "http://localhost:9090/RecipeFinder/";
+  private url = environment.envVar.springUrl+'/RecipeFinder/';
   constructor(private http:HttpClient) { }
 
   userLogin(email:string,password:string):Observable<boolean>{
