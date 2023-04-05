@@ -10,7 +10,7 @@ import { recipe } from "./recipe";
 })
 export class RecipeService{
 
-    private url = 'http://localhost:8080/api/mealDB';
+    private url = 'http://localhost:9090/api/mealDB';
     constructor(private http:HttpClient, private progressBarService: ProgressBarService){}
 
     getRecipes(): Observable<meals>{
