@@ -42,6 +42,7 @@ export class DataService {
         tap( data => {
           console.log('Area',JSON.stringify(data));
           this.progressBarService.stopLoading();
+          this.progressBarService.setSuccess();
         }),
         // catchError(this.handleError)
     );  
