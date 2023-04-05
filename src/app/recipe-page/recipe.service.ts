@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, catchError, tap, throwError } from "rxjs";
 import { ProgressBarService } from "../shared/progress-bar.service";
 import { meals } from "./meal";
-import { recipe } from "./recipe";
+import { nutrition, recipe } from "./recipe";
 import { environment } from "src/environments/environment.development";
 
 @Injectable({
@@ -12,6 +12,7 @@ import { environment } from "src/environments/environment.development";
 export class RecipeService{
 
     private mealDBUrl = environment.envVar.springUrl+"/api/mealDB";
+    private spoonUrl = environment.envVar.springUrl+"/api/spoonacular";
     constructor(private http:HttpClient, private progressBarService: ProgressBarService){}
 
     getRecipes(): Observable<meals>{
@@ -48,6 +49,18 @@ export class RecipeService{
         return this.http.get<meals>(this.mealDBUrl+"/filter/"+type+"?name="+name).pipe(
             tap( data => {
                 console.log('filter for '+name,JSON.stringify(data));
+                this.progressBarService.stopLoading();
+                this.progressBarService.setSuccess();
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+    getNutritionByName(name:string): Observable<nutrition>{
+        this.progressBarService.startLoading();
+        return this.http.get<nutrition>(this.spoonUrl+"/guessNutrition?name="+name).pipe(
+            tap( data => {
+                console.log('nutrition for '+name,JSON.stringify(data));
                 this.progressBarService.stopLoading();
                 this.progressBarService.setSuccess();
             }),

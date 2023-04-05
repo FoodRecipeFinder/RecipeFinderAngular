@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container recipe-page">
     <div class="row">
         <div class="card text-center recipe-card">
             <div class="row">
@@ -47,11 +47,56 @@
             {{recipe?.strInstructions}}
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="nutritionRecipe!=undefined">
         <div class="title">Nutrition Facts</div>
+        <div class="row content">
+            <div class="col-md-1 nutrition">
+                {{nutritionRecipe?.calories?.value}}
+            </div>
+            <div class="col-md-1 nutrition">
+                {{nutritionRecipe?.fat?.value}}{{nutritionRecipe?.fat?.unit}}
+            </div>
+            <div class="col-md-1 nutrition">
+                {{nutritionRecipe?.carbs?.value}}{{nutritionRecipe?.carbs?.unit}}
+            </div>
+            <div class="col-md-1 nutrition">
+                {{nutritionRecipe?.protein?.value}}{{nutritionRecipe?.protein?.unit}}
+            </div>
+        </div>
+        <div class="row content">
+            <div class="col-md-1">
+                Calories
+            </div>
+            <div class="col-md-1">
+                Fat
+            </div>
+            <div class="col-md-1">
+                Carbs
+            </div>
+            <div class="col-md-1">
+                Protien
+            </div>
+        </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="recommendRecipes.length">
         <div class="title">You'll Also Love</div>
+        <div class="row">
+            <div class="card-columns">
+                <div class="card text-center recommend-card" *ngFor="let recipe of recommendRecipes">
+                    <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
+                        <img class="card-img-top" [src]="recipe.strMealThumb"
+                         />
+                    
+                        <div class="card-body">
+                            <h6 class="card-title recommend-title">{{recipe.strMeal}}</h6>
+                        </div>
+                        <!-- <div class="card-img-overlay">
+                            <h6 class="card-title" style="color: white; font-size: 20px;">{{recipe.strMeal}}</h6>
+                        </div> -->
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         
