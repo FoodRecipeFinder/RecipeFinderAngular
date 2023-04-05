@@ -1,0 +1,26 @@
+.recipe-card{
+    background-color: black;
+    width: 90%;
+    margin: 20px 5% 20px 5%;
+}
+.recipe-title{
+    font-size: 45px;
+    font-weight: 600;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+.top{
+    background-color: black;
+}
+.title{
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 20px;
+}
+.content{
+    font-size: 18px;
+}
+ul{
+    padding-left:1em !important;
+    margin-left:1em;
+}
