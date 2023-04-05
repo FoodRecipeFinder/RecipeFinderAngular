@@ -7,6 +7,9 @@
     width:66%;
     display: inline-block;
 } */
+.home{
+    min-height: calc(100vh - 100px);
+}
 .card{
     display: inline-block;
     width: 30%;

@@ -12,6 +12,7 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { HeaderComponent } from './header/header.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { SavedRecipesComponent } from './saved-recipes/saved-recipes.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SavedRecipesComponent } from './saved-recipes/saved-recipes.component';
     RecipePageComponent,
     HeaderComponent,
     UserLoginComponent,
-    SavedRecipesComponent
+    SavedRecipesComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
