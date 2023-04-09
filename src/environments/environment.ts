@@ -1,9 +1,8 @@
 export const environment = {
     prod: true,
-    baseUrl: 'http://localhost:9090',
-    // 'CURRENTLY'REPLACE WITH BASE URL HERE //DOESNOT WORK ,
+    baseUrl: 'REPLACE WITH BASE URL HERE //DOESNOT WORK CURRENTLY',
     envVar: {
-        springUrl:'http://localhost:9090',
+        springUrl:'REPLACE WITH SPRING URL HERE',
         LOG_LEVEL: 'debug',
         version: 0
     }

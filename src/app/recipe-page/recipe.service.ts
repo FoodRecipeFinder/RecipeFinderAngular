@@ -6,6 +6,7 @@ import { meals } from "./meal";
 import { nutrition, recipe } from "./recipe";
 import { environment } from "../../environments/environment.development";
 
+
 @Injectable({
     providedIn:'root'
 })
@@ -13,7 +14,6 @@ export class RecipeService{
 
     private mealDBUrl = environment.envVar.springUrl+"/api/mealDB";
     private spoonUrl = environment.envVar.springUrl+"/api/spoonacular";
-
 
     constructor(private http:HttpClient, private progressBarService: ProgressBarService){}
 
