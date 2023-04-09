@@ -44,6 +44,10 @@
                     </div>
                     <br/>
                     <div class="card text-center random-card">
+                        <app-spinner *ngIf="showSpinner"></app-spinner>
+                        <div class="spinner-border text-light align-self-center" role="status" *ngIf="showSpinner">
+                            <span class="sr-only">Loading...</span>
+                        </div>
                         <a [routerLink]="['/recipe',randomRecipe.idMeal]" target="_blank">
                             <div class="row">
                                 <div class="col-md-6">

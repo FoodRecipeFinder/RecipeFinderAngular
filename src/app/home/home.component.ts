@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   categories:Category[]=[];
   ingredients:Ingredient[]=[];
   trivia='';
+  showSpinner = true;
 
   selectedData:{[index: string]:string}={
     'a':'',
@@ -43,6 +44,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   }
 
   ngOnInit(): void {
+    //for saved
     this.sub = this.recipeService.getRecipes().subscribe({
       next : recipes => {
         this.recipes = recipes.meals;
@@ -51,9 +53,11 @@ export class HomeComponent implements OnInit , OnDestroy{
       error: err => this.errorMessage = err
     });
 
+    //for title card
     this.sub = this.recipeService.getRecipes().subscribe({
       next : recipes => {
         this.randomRecipe = recipes.meals[0];
+        this.showSpinner = false;
       },
       error: err => this.errorMessage = err
     });

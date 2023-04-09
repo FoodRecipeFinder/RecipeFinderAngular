@@ -29,6 +29,7 @@ a{
     width: 98%;
     margin: 1%;
     background-color: black;
+    min-height: 500px;
 }
 .random-card-title{
     font-size: 50px;

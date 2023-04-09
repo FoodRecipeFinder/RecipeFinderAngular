@@ -16,6 +16,7 @@ export class RecipeService{
     constructor(private http:HttpClient, private progressBarService: ProgressBarService){}
 
     getRecipes(): Observable<meals>{
+        this.progressBarService.startLoading();
         return this.http.get<meals>(this.mealDBUrl+"/random").pipe(
             tap( data => console.log('ALL',JSON.stringify(data))),
             catchError(this.handleError)
@@ -24,7 +25,7 @@ export class RecipeService{
 
     //search
     getRecipesByName(name:string): Observable<meals>{
-        this.progressBarService.startLoading();
+        // this.progressBarService.startLoading();
         return this.http.get<meals>(this.mealDBUrl+"/search?name="+name).pipe(
             tap( data => {
                 console.log('search for '+name,JSON.stringify(data));
