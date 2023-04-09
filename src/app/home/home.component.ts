@@ -3,7 +3,9 @@ import { Subscription } from 'rxjs';
 import { recipe } from '../recipe-page/recipe';
 import { RecipeService } from '../recipe-page/recipe.service';
 import { DataService } from '../shared/data.service';
-import { Area, Category, Ingredient } from '../shared/Dto';
+import { Area, Category, Ingredient, User } from '../shared/Dto';
+import { LoginService } from '../login-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -42,7 +44,24 @@ export class HomeComponent implements OnInit , OnDestroy{
     'i':''
   }
 
+  emailId : string='';
+  password: string ='';
+  otp:number|undefined;
+
+  isValid: boolean | undefined;
+  userId:string='';
+  displayForm:string = 'loginwithpassword';
+  loginStatus:boolean=false;
+  
+
   ngOnInit(): void {
+    this.userId= JSON.parse(localStorage.getItem("userId")!);
+    console.log('userId : '+this.userId);
+    localStorage.setItem("userId",this.userId);
+    if(this.userId!=null){
+      this.loginStatus=true;
+    }
+
     this.sub = this.recipeService.getRecipes().subscribe({
       next : recipes => {
         this.recipes = recipes.meals;
@@ -92,7 +111,7 @@ export class HomeComponent implements OnInit , OnDestroy{
       this.sub.unsubscribe();
   }
 
-  constructor(private recipeService: RecipeService, private dataService:DataService){}
+  constructor(private recipeService: RecipeService, private dataService:DataService , private service:LoginService,private route:Router){}
 
   performFilter(filterBy: string) :recipe[]{
     filterBy = filterBy.toLowerCase();
@@ -127,4 +146,133 @@ export class HomeComponent implements OnInit , OnDestroy{
       }
     }
   }
+
+  signupForm(){
+    this.displayForm = "signupForm";
+  }
+
+  loginwithotpForm(){
+    this.displayForm ="loginwithotp";
+  }
+
+  loginwithpasswordForm(){
+    this.displayForm = 'loginwithpassword';
+  }
+
+  userLoginByPassword(){
+    let result = this.service.userLoginByPassword(this.emailId,this.password);
+
+    this.service.emailExists(this.emailId).subscribe(
+      res=>{
+        if(res){
+          result.subscribe( msg=>{
+            this.isValid = msg;
+            if(this.isValid){
+              this.service.searchUserByEmail(this.emailId).subscribe(
+                data=>{
+                  this.userId=JSON.stringify(data.userId);
+                  localStorage.setItem("userId",JSON.stringify(data.userId));
+                  // sessionStorage.setItem("user",JSON.stringify(data));
+                  // console.log("User : ",sessionStorage.getItem("userId"));
+                }
+              )
+              alert('Login Successful');
+              window.location.reload();
+            }
+            else{
+              console.log("failed  "+this.isValid);
+              alert('Invalid Credentials')
+            }
+      
+          });
+        }
+        else{
+          alert('User Does Not Exists...')
+        }
+      }
+    )
+    
+   
+  }
+
+  
+  sendOtpButtonVar :string='Send OTP';
+  sendOtpFunction(){
+    this.service.emailExists(this.emailId).subscribe(
+      result=>{
+        if(result){
+          this.service.sendOtp(this.emailId).subscribe(
+            status=>{
+              if(status){
+                this.sendOtpButtonVar = "Resend OTP";
+                alert('Otp send to '+this.emailId);
+              }
+              else{
+                alert("Something went wrong");
+              }
+            }
+          )
+        }
+        else{
+          console.log("otp not sent");
+          alert('User Does Not Exists...\nPlease enter registered emailId')
+        }
+      }
+
+    );
+    
+  }
+
+  checkOtpLogin(){
+      this.service.userLoginByOtp(this.emailId,this.otp!).subscribe(
+        res=>{
+          if(res){
+            this.service.searchUserByEmail(this.emailId).subscribe(
+              data=>{
+                this.userId=JSON.stringify(data.userId);
+                localStorage.setItem("userId",JSON.stringify(data.userId));
+                // sessionStorage.setItem("user",JSON.stringify(data));
+                // console.log("User : ",sessionStorage.getItem("userId"));
+              }
+            )
+            alert('Login Successful');
+            window.location.reload();
+          }
+          else{
+            alert('Invalid Otp');
+          }
+        }
+      )
+  }
+
+  userData :User= new User();
+  confirmPassword:string='';
+  
+  userSignUp(){
+    this.service.emailExists(this.userData.email).subscribe(
+      res=>{
+        if(res){
+          alert('EmailId already registered\nPlease use another emailId or login');
+        }
+        else{
+            console.log("user : "+JSON.stringify(this.userData));
+            // alert(JSON.stringify(this.userData));
+            this.service.signUp(this.userData).subscribe(
+              data=>{
+                if(data){
+                  alert('Signup successful');
+                  window.location.reload()
+                }
+                else{
+                  alert('Something went wrong!!! Please try again')
+                }
+              }
+            )
+        }
+      }
+    )
+  }
+
+
+
 }

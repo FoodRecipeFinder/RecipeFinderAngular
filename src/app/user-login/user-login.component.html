@@ -1,24 +1,133 @@
-<br><br>
-<label class="form-label" style="margin-left: 26%;">Email Id : </label>
-<input type="text" class="form-control form-control-lg" 
-style="width: 350px; margin-left: 25%"
-[(ngModel)]="email" [ngModelOptions]="{ standalone: true }"/>
+<div class="table-responsive saved-table col-sm-4" >
 
-<br>
-<label class="form-label" style="margin-left: 26%">Password : </label>
-<input type="password" class="form-control form-control-lg"
-style="width: 350px; margin-left: 25%"
-[(ngModel)]="password" [ngModelOptions]="{ standalone: true }"/>
+  <div *ngIf="displayForm == 'loginwithpassword'"><h3>Login</h3><br>
 
-<div class="text-center text-lg-start mt-4 pt-2" style="margin-left: 35%">
-    <button
-      type="button"
-      class="btn btn-primary btn-lg"
-      style="padding-left: 2.5rem; padding-right: 2.5rem"
-      (click)="userLogin()">Login</button
-    ><br />
-    <p class="small fw-bold mt-2 pt-1 mb-0">
-      Don't have an account?
-      <a class="link-danger" routerLink="/user-register">Register</a>
-    </p>
+      <!-- Login form starts -->
+      <form #loginForm="ngForm">
+
+          <!-- Email input -->
+            <div class="form-outline mb-4">
+            <label
+              class="form-label" for="form3Example3">Email Id : </label>
+
+              <input type="email" name="email" #email=ngModel [(ngModel)]="emailId" class="form-control form-control-lg" style="width: 90%;"
+                  placeholder="Enter Email Address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [ngModelOptions]="{ standalone: true }">
+                    <div *ngIf="email.errors?.['required'] && email.touched">
+                        <div style="color: red;">
+                            Please enter your Email address
+                        </div>
+                    </div>
+                    <div *ngIf="email.errors?.['pattern']">
+                        <div style="color: red;">
+                            Please enter a valid Email address
+                        </div>
+                    </div>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-3">
+              <label class="form-label" for="form3Example4">Password</label>
+              <input type="password" #pass=ngModel id="form3Example4" class="form-control form-control-lg" [(ngModel)]="password" style="width: 90%;"
+              [ngModelOptions]="{ standalone: true }" placeholder="Enter password" required="true"/>
+              <div *ngIf="pass.errors?.['required'] && pass.touched">
+                <div style="color: red;">
+                  Please enter password
+                </div>
+              </div>
+            </div>
+
+          
+          <div class="row" style="width:100%;" >
+            <div class="col-sm-4">
+            <button type="submit" id="loginButton" (click)="userLoginByPassword()" class="btn btn-primary btn-lg"
+              style="padding-left: 2.5rem; padding-right: 2.5rem">
+              Login
+            </button>
+            </div>
+            <div class="col-sm-4">
+            <p class="small fw-bold mt-2 pt-1 mb-0" style="font-size: 13px;">
+              <a href="" (click)="loginwithotpForm()">Login with otp</a><br>
+              
+            </p>
+            </div>
+          </div>
+          <div>
+            <p class="small fw-bold mt-2 pt-1 mb-0">
+              Don't have an account?
+              <a class="link-danger" (click)="signupForm()">Signup</a>
+            </p>
+            </div>
+        </form>
+  </div>
+  <div *ngIf="displayForm == 'loginwithotp'"><h3>Login with otp</h3>
+
+    <!-- Login with Otp form form starts -->
+    <form #loginForm="ngForm">
+
+      <!-- Email input -->
+        <div class="form-outline mb-4">
+        <label
+          class="form-label" for="form3Example3">Email Id : </label>
+
+          <input type="email" name="email" #email=ngModel [(ngModel)]="emailId" class="form-control form-control-lg"
+              placeholder="Enter Email Address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [ngModelOptions]="{ standalone: true }">
+                <div *ngIf="email.errors?.['required'] && email.touched">
+                    <div style="color: red;">
+                        Please enter your Email address
+                    </div>
+                </div>
+                <div *ngIf="email.errors?.['pattern']">
+                    <div style="color: red;">
+                        Please enter a valid Email address
+                    </div>
+                </div>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-3">
+          <label class="form-label" for="form3Example4">Password</label>
+          <input type="password" #pass=ngModel id="form3Example4" class="form-control form-control-lg" [(ngModel)]="password" 
+          [ngModelOptions]="{ standalone: true }" placeholder="Enter password" required="true"/>
+          <div *ngIf="pass.errors?.['required'] && pass.touched">
+            <div style="color: red;">
+              Please enter password
+            </div>
+          </div>
+        </div>
+
+      
+        <div class="row" style="width:100%;" >
+          <div class="col-sm-4">
+          <button type="submit" id="loginButton" (click)="userLoginByPassword()" class="btn btn-primary btn-lg"
+            style="padding-left: 2.5rem; padding-right: 2.5rem">
+            Login
+          </button>
+          </div>
+          <div class="col-sm-4">
+          <p class="small fw-bold mt-2 pt-1 mb-0" style="font-size: 13px;">
+            <a href="" (click)="loginwithotpForm()">Login with otp</a><br>
+            
+          </p>
+          </div>
+        </div>
+        <div>
+          <p class="small fw-bold mt-2 pt-1 mb-0">
+            Don't have an account?
+            <a class="link-danger" (click)="signupForm()">Signup</a>
+          </p>
+          </div>
+    </form>
+      <a  (click)="loginwithpasswordForm()">Login with password</a><br>
+      <a  (click)="signupForm()">Signup</a>
+  </div>
+  <div *ngIf="displayForm == 'signup'"><h3>signup</h3>
+      <a  (click)="loginwithpasswordForm()">Login</a><br>
+  </div>
+</div>
+
+<div *ngIf="userId =='null'">
+before login
+</div>
+<div *ngIf="userId !='null'">
+  after login
   </div>

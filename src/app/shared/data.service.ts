@@ -3,32 +3,36 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
 import { Area, Category, Ingredient, SpoonText } from './Dto';
 import { ProgressBarService } from './progress-bar.service';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataService {
 
-  private url = 'http://localhost:8080/api/mealDB';
+  private mealDBUrl = environment.envVar.springUrl+"/api/mealDB";
+  private spoonUrl = environment.envVar.springUrl+"/api/spoonacular";
+
   constructor(private http:HttpClient, private progressBarService: ProgressBarService) { }
 
   getArea(): Observable<Area[]>{
     this.progressBarService.startLoading();
-    return this.http.get<Area[]>(this.url+"/list/a").pipe(
+    return this.http.get<Area[]>(this.mealDBUrl+"/list/a").pipe(
         tap( data => console.log('Area',JSON.stringify(data))),
         // catchError(this.handleError)
     );
   }
 
   getCategory(): Observable<Category[]>{
-    return this.http.get<Category[]>(this.url+"/list/c").pipe(
+    return this.http.get<Category[]>(this.mealDBUrl+"/list/c").pipe(
         tap( data => console.log('Area',JSON.stringify(data))),
         // catchError(this.handleError)
     );
   }
 
   getIngredients(): Observable<Ingredient[]>{
-    return this.http.get<Ingredient[]>(this.url+"/list/i").pipe(
+    return this.http.get<Ingredient[]>(this.mealDBUrl+"/list/i").pipe(
         tap( data => {
           console.log('Area',JSON.stringify(data));
           this.progressBarService.stopLoading();
@@ -38,10 +42,11 @@ export class DataService {
   }
 
   getTrivia(): Observable<SpoonText>{
-    return this.http.get<SpoonText>("http://localhost:8080/api/spoonacular/trivia").pipe(
+    return this.http.get<SpoonText>(this.spoonUrl+"/trivia").pipe(
         tap( data => {
           console.log('Area',JSON.stringify(data));
           this.progressBarService.stopLoading();
+          this.progressBarService.setSuccess();
         }),
         // catchError(this.handleError)
     );  

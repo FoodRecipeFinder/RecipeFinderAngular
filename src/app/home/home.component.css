@@ -7,9 +7,17 @@
     width:66%;
     display: inline-block;
 } */
+.home{
+    min-height: calc(100vh - 100px);
+}
 .card{
     display: inline-block;
     width: 30%;
+    margin: 1%;
+}
+.card1{
+    display: inline-block;
+    width: 50%;
     margin: 1%;
 }
 .recipe-title{

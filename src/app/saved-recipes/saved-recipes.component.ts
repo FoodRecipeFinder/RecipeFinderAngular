@@ -13,19 +13,25 @@ import { meals } from '../recipe-page/meal';
 })
 export class SavedRecipesComponent {
   getMealId : savedRecipesDTO[] = [];
-  userId : number = 1008;
+  userId : number |undefined;
   mealId : number |undefined;
   recipeDetails: recipe[] = [];
   savedRecipeId : number | undefined;
+  loginStatus:boolean=false;
 
   constructor(private recipeService: RecipeService,private service : LoginService){}
 
   ngOnInit():void{
+    this.userId=JSON.parse(localStorage.getItem("userId")!);
+    if(this.userId!=null) {this.loginStatus=true;}   
+    else{
+      alert('Session timeout. Please login again!!!');
+    }  
     this.getAllRecipes();
   }
   
   getAllRecipes(){
-    this.service.savedRecipes(this.userId).subscribe(
+    this.service.savedRecipes(this.userId!).subscribe(
       recipe  =>{
         this.getMealId = recipe;
         recipe.forEach( (element) => {
@@ -48,7 +54,7 @@ export class SavedRecipesComponent {
   }
   
   removeRecipe(mealID:number){
-    this.service.getSavedRecipeId(this.userId,mealID).subscribe(
+    this.service.getSavedRecipeId(this.userId!,mealID).subscribe(
       id=>{
         this.savedRecipeId=id;
         console.log(this.savedRecipeId," kjke ",mealID);

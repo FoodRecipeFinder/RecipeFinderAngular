@@ -1,65 +1,99 @@
-import { Component, InjectFlags, OnInit } from '@angular/core';
+import { Component, InjectFlags, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { recipe } from './recipe';
+import { nutrition, recipe } from './recipe';
 import { RecipeService } from './recipe.service';
 import { LoginService } from '../login-service.service';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-recipe-page',
   templateUrl: './recipe-page.component.html',
   styleUrls: ['./recipe-page.component.css']
 })
-export class RecipePageComponent implements OnInit {
-  recipe: recipe | undefined;
+export class RecipePageComponent implements OnInit , OnDestroy{
+  recipe!: recipe;
+  recommendRecipes: recipe[] =[];
+  nutritionRecipe: nutrition | undefined;
   sub!: Subscription;
+  nestedSub!: Subscription;
   errorMessage = '';
-  mealId : number =0;
-  userId : number = 1008;
+  userId : number | undefined;
   value : boolean | undefined;
-  btnText : String='';
-
+  // btnText : String='';
   saveButton:boolean | undefined;
+  
   constructor(private route: ActivatedRoute, private router: Router, private recipeService: RecipeService,private service : LoginService){}
   
   ngOnInit(): void{
+    this.userId=JSON.parse(localStorage.getItem("userId")!);
+    if(this.userId==null){
+      document.getElementById("saveButton")?.setAttribute('disabled','');
+    }
+
+    
     const id = Number(this.route.snapshot.paramMap.get('id'));  
     // this.recipe = history.state;
     this.sub = this.recipeService.getRecipeById(id).subscribe({
       next : recipes => {
         this.recipe = recipes.meals[0];
         this.checkIfSaved();
+        let search = this.recipe.strTags.split(',')[0]
+        if(!search){
+          search = this.recipe.strCategory;
+        }
+        this.nestedSub = this.recipeService.getRecipesByName(search).subscribe({
+          next : meal => {
+            this.recommendRecipes = meal.meals.slice(0,5);
+          },
+          error: err => this.errorMessage = err
+        });
+        this.nestedSub = this.recipeService.getNutritionByName(this.recipe.strMeal).subscribe({
+          next : nut => {
+            
+            this.nutritionRecipe = nut;
+            console.log("nutr",nut)
+          },
+          error: err => this.errorMessage = err
+        });
+        
+       
       },
       error: err => this.errorMessage = err
-
     });
-
-   
   }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+    this.nestedSub.unsubscribe();
+  }
   
   checkIfSaved(){
-     this.service.checkIfSaved(this.userId,this.recipe?.idMeal!).subscribe(
+    // console.log('checkIfSaved : ',this.userId," ",this.recipe?.idMeal);
+     this.service.checkIfSaved(this.userId!,this.recipe?.idMeal).subscribe(
       res => {
-        console.log(this.mealId," ",res," ",this.recipe?.idMeal);
         this.saveButton=res;
         if (this.saveButton) {
           document.getElementById("saveButton")?.setAttribute('disabled','');
-          this.btnText="Already Saved"
-        } else {
-          this.btnText="Save for later"
-        }
+        } 
+        // else {
+        //   this.btnText="Save for later"
+        // }
       }
     )
   }
-
+  
   saveRecipe():void{
     
-    this.service.saveRecipe(this.userId,this.recipe?.idMeal!).subscribe(
-      res=>{
-        this.value=res;
-        console.log(this.mealId," ",res," ",this.recipe?.idMeal);
-        if(this.value){
+    console.log("uid :",this.userId,"mid : ",this.recipe.idMeal)
+
+    this.service.saveRecipe(this.userId!,this.recipe.idMeal).subscribe(
+      state=>{
+        // this.value=state;
+        console.log(this.userId," ",state," ",this.recipe.idMeal);
+        if(state){
+          
+      console.log("uid :",this.userId,"mid : ",this.recipe.idMeal)
           alert("Recipe saved");
           window.location.reload();
         }
