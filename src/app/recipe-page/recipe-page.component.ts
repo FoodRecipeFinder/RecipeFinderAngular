@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { nutrition, recipe } from './recipe';
 import { RecipeService } from './recipe.service';
 import { LoginService } from '../login-service.service';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-recipe-page',
@@ -17,20 +18,26 @@ export class RecipePageComponent implements OnInit , OnDestroy{
   sub!: Subscription;
   nestedSub!: Subscription;
   errorMessage = '';
-  mealId : number | undefined;
-  userId : number = 1008;
+  userId : number | undefined;
   value : boolean | undefined;
-  btnText : String='';
+  // btnText : String='';
   saveButton:boolean | undefined;
   
   constructor(private route: ActivatedRoute, private router: Router, private recipeService: RecipeService,private service : LoginService){}
   
   ngOnInit(): void{
+    this.userId=JSON.parse(localStorage.getItem("userId")!);
+    if(this.userId==null){
+      document.getElementById("saveButton")?.setAttribute('disabled','');
+    }
+
+    
     const id = Number(this.route.snapshot.paramMap.get('id'));  
     // this.recipe = history.state;
     this.sub = this.recipeService.getRecipeById(id).subscribe({
       next : recipes => {
         this.recipe = recipes.meals[0];
+        this.checkIfSaved();
         let search = this.recipe.strTags.split(',')[0]
         if(!search){
           search = this.recipe.strCategory;
@@ -49,7 +56,8 @@ export class RecipePageComponent implements OnInit , OnDestroy{
           },
           error: err => this.errorMessage = err
         });
-        this.checkIfSaved();
+        
+       
       },
       error: err => this.errorMessage = err
     });
@@ -61,27 +69,31 @@ export class RecipePageComponent implements OnInit , OnDestroy{
   }
   
   checkIfSaved(){
-     this.service.checkIfSaved(this.userId,this.recipe?.idMeal!).subscribe(
+    // console.log('checkIfSaved : ',this.userId," ",this.recipe?.idMeal);
+     this.service.checkIfSaved(this.userId!,this.recipe?.idMeal).subscribe(
       res => {
-        console.log(this.mealId," ",res," ",this.recipe?.idMeal);
         this.saveButton=res;
         if (this.saveButton) {
           document.getElementById("saveButton")?.setAttribute('disabled','');
-          this.btnText="Already Saved"
-        } else {
-          this.btnText="Save for later"
-        }
+        } 
+        // else {
+        //   this.btnText="Save for later"
+        // }
       }
     )
   }
-
+  
   saveRecipe():void{
     
-    this.service.saveRecipe(this.userId,this.recipe?.idMeal!).subscribe(
-      res=>{
-        this.value=res;
-        console.log(this.mealId," ",res," ",this.recipe?.idMeal);
-        if(this.value){
+    console.log("uid :",this.userId,"mid : ",this.recipe.idMeal)
+
+    this.service.saveRecipe(this.userId!,this.recipe.idMeal).subscribe(
+      state=>{
+        // this.value=state;
+        console.log(this.userId," ",state," ",this.recipe.idMeal);
+        if(state){
+          
+      console.log("uid :",this.userId,"mid : ",this.recipe.idMeal)
           alert("Recipe saved");
           window.location.reload();
         }

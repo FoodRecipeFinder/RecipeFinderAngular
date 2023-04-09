@@ -3,15 +3,17 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
 import { Area, Category, Ingredient, SpoonText } from './Dto';
 import { ProgressBarService } from './progress-bar.service';
-import { environment } from 'src/environments/environment.development';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataService {
 
   private mealDBUrl = environment.envVar.springUrl+"/api/mealDB";
   private spoonUrl = environment.envVar.springUrl+"/api/spoonacular";
+
   constructor(private http:HttpClient, private progressBarService: ProgressBarService) { }
 
   getArea(): Observable<Area[]>{

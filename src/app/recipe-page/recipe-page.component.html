@@ -1,3 +1,4 @@
+<!-- user:{{userId}},{{recipe.idMeal}} -->
 <div class="container recipe-page">
     <div class="row">
         <div class="card text-center recipe-card">
@@ -16,7 +17,9 @@
     </div>
     <div class="row">
         <div class="col-md-6 title">Ingredients</div>
-        <div class="col-md-1 offset-md-5" style="margin-top: 20px;"><button class="btn btn-dark" name="saveButton" id="saveButton" (click)="saveRecipe()"><i class="fa fa-bookmark" aria-hidden="true"></i>
+        <div class="col-md-1 offset-md-5" style="margin-top: 20px;">
+            <button class="btn btn-dark" name="saveButton" id="saveButton" (click)="saveRecipe()">
+                <i class="fa fa-bookmark" aria-hidden="true"></i>
         </button></div>
         <ul class="content">
             <li *ngIf="recipe?.strIngredient1">{{recipe?.strMeasure1}} {{recipe?.strIngredient1}}</li>

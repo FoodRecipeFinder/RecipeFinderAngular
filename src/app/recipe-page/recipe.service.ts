@@ -4,7 +4,8 @@ import { Observable, catchError, tap, throwError } from "rxjs";
 import { ProgressBarService } from "../shared/progress-bar.service";
 import { meals } from "./meal";
 import { nutrition, recipe } from "./recipe";
-import { environment } from "src/environments/environment.development";
+import { environment } from "../../environments/environment.development";
+
 
 @Injectable({
     providedIn:'root'
@@ -13,6 +14,7 @@ export class RecipeService{
 
     private mealDBUrl = environment.envVar.springUrl+"/api/mealDB";
     private spoonUrl = environment.envVar.springUrl+"/api/spoonacular";
+
     constructor(private http:HttpClient, private progressBarService: ProgressBarService){}
 
     getRecipes(): Observable<meals>{
