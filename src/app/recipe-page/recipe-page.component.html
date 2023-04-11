@@ -2,6 +2,7 @@
 <div class="container recipe-page">
     <div class="row">
         <div class="card text-center recipe-card">
+            <app-spinner *ngIf="showSpinner" style="margin-top: 90px;"></app-spinner>
             <div class="row">
                 <div class="col-md-6 align-self-center">
                     <div class="card-body recipe-body">
@@ -20,7 +21,8 @@
         <div class="col-md-1 offset-md-5" style="margin-top: 20px;">
             <button class="btn btn-dark" name="saveButton" id="saveButton" (click)="saveRecipe()">
                 <i class="fa fa-bookmark" aria-hidden="true"></i>
-        </button></div>
+            </button>
+        </div>
         <ul class="content">
             <li *ngIf="recipe.strIngredient1">{{recipe.strMeasure1}} {{recipe.strIngredient1}}</li>
             <li *ngIf="recipe.strIngredient2">{{recipe.strMeasure2}} {{recipe.strIngredient2}}</li>
@@ -46,7 +48,11 @@
     </div>
     <div class="row">
         <div class="title">Instructions</div>
+        <div>
+            <app-spinner-black *ngIf="showSpinner"></app-spinner-black>
+        </div>
         <div class="content">
+            
             {{recipe.strInstructions}}
         </div>
     </div>
