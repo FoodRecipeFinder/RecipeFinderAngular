@@ -1,36 +1,60 @@
 <!-- userid : {{userId}} -->
 
 <div class="container" *ngIf="loginStatus">
-    <table class="table" >
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Saved List</h4>
+        </div>
+    </div>
+    <div class="row" *ngIf="recipeDetails.length">
+        <div class="col-md-6">Filter By:</div>
+        <div class="col-md-6">
+            <input type="text" [(ngModel)]="listFilter"/>
+            
+        </div>
+    </div>
+    <table class="table" *ngIf="recipeDetails.length">
         <thead>
             <tr>
                 <th>Image</th>
                 <th>Name</th>
-                <th>Category</th>
-                <th>Cuisine</th>
-                <th>Action</th>
+                <!-- <th>Category</th> -->
+                <!-- <th>Cuisine</th> -->
+                <!-- <th>Ac tion</th> -->
             </tr>
         </thead>
-        <tbody *ngIf="recipeDetails.length">
-            <tr *ngFor = "let recipe of recipeDetails">
+        <tbody>
+            <tr *ngFor = "let recipe of filteredRecipes">
                 <td>
-                    <img [src]="recipe.strMealThumb" style="width: 150px;margin-left: 10px;">
+                    <img [src]="recipe.strMealThumb" style="width: 100px;">
                 </td>
                 <td>
                     <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
                         {{ recipe.strMeal }}
                     </a>
+                    <div class="remove">
+                        <!-- <button class="btn btn-link btn-sm remove-btn" (click)="removeRecipe(recipe.idMeal)">remove</button> -->
+                        <button class="btn btn-link remove-btn" (click)="removeRecipe(recipe.idMeal)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </div>
                 </td>
-                <td>{{recipe.strCategory}}</td>
-                <td>{{recipe.strArea}}</td>
+                <!-- <td>{{recipe.strCategory}}</td> -->
+                <!-- <td>{{recipe.strArea}}</td> -->
     
-                <td><button class="btn btn-primary" (click)="removeRecipe(recipe.idMeal)">Remove</button></td>
+                <!-- <td>
+                    
+                </td> -->
+                <!-- <td><a (click)="removeRecipe(recipe.idMeal)">Remove</a></td> -->
+
             </tr>
         </tbody>
     </table>
-    <div *ngIf="!recipeDetails.length" style="font-size: 15px;font-weight: bolder; text-align: center;">No recipes to show</div>
+    <div *ngIf="!recipeDetails.length" style="font-size: 20px; text-align: center; margin-top: 50px;">
+        <!-- No recipes to show<br/> -->
+        Save Recipes to View them here
+    </div>
 </div>
 <div *ngIf="!loginStatus">
     <!-- Session timeout. Please login again!!! -->
     <app-home></app-home>
 </div>
+

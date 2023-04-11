@@ -19,6 +19,21 @@ export class SavedRecipesComponent {
   savedRecipeId : number | undefined;
   loginStatus:boolean=false;
 
+  filteredRecipes: recipe[]=[];
+  private _listFilter:string = '';
+  get listFilter(): string{
+    return this._listFilter;
+  }
+  set listFilter(value: string){
+    this._listFilter = value;
+    this.filteredRecipes = this.performFilter(value);
+  }
+
+  performFilter(filterBy: string) :recipe[]{
+    filterBy = filterBy.toLowerCase();
+    return this.recipeDetails.filter((recipe : recipe )=>recipe.strMeal.toLowerCase().includes(filterBy));
+  }
+
   constructor(private recipeService: RecipeService,private service : LoginService){}
 
   ngOnInit():void{
@@ -49,6 +64,7 @@ export class SavedRecipesComponent {
     this.recipeService.getRecipeById(mealID).subscribe({
       next : data =>{
         this.recipeDetails.push(data.meals[0]);
+        this.filteredRecipes = this.recipeDetails;
       }
     });
   }
