@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Area, Category, Ingredient, SpoonText } from './Dto';
 import { ProgressBarService } from './progress-bar.service';
 import { environment } from '../../environments/environment.development';
@@ -20,14 +20,14 @@ export class DataService {
     this.progressBarService.startLoading();
     return this.http.get<Area[]>(this.mealDBUrl+"/list/a").pipe(
         tap( data => console.log('Area',JSON.stringify(data))),
-        // catchError(this.handleError)
+        catchError(this.handleError)
     );
   }
 
   getCategory(): Observable<Category[]>{
     return this.http.get<Category[]>(this.mealDBUrl+"/list/c").pipe(
         tap( data => console.log('Area',JSON.stringify(data))),
-        // catchError(this.handleError)
+        catchError(this.handleError)
     );
   }
 
@@ -37,7 +37,7 @@ export class DataService {
           console.log('Area',JSON.stringify(data));
           this.progressBarService.stopLoading();
         }),
-        // catchError(this.handleError)
+        catchError(this.handleError)
     );  
   }
 
@@ -50,6 +50,21 @@ export class DataService {
         }),
         // catchError(this.handleError)
     );  
+  }
+
+  private handleError( err:HttpErrorResponse ){
+    this.progressBarService.stopLoading();
+    let errorMessage = '';
+    if(err.error instanceof ErrorEvent){
+        //client side error
+        errorMessage = `An error occured: ${err.message}`;
+    }
+    else{
+        //server side error
+        errorMessage = `Server return code: ${err.status}, error message is ${err.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(()=>errorMessage);
   }
 
 }

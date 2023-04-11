@@ -34,9 +34,14 @@ a{
     width: 98%;
     margin: 1%;
     background-color: black;
+    min-height: 400px;
 }
 .random-card-title{
     font-size: 50px;
     font-family: 'Times New Roman', Times, serif;
     color: white;
 }
+.search-card{
+    min-height: 300px;
+}
+

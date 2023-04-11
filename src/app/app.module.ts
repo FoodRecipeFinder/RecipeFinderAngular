@@ -13,6 +13,8 @@ import { HeaderComponent } from './header/header.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { SavedRecipesComponent } from './saved-recipes/saved-recipes.component';
 import { FooterComponent } from './footer/footer.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { SpinnerBlackComponent } from './shared/spinner/spinner-black.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,10 @@ import { FooterComponent } from './footer/footer.component';
     HeaderComponent,
     UserLoginComponent,
     SavedRecipesComponent,
-    FooterComponent
+    FooterComponent,
+    SpinnerComponent,
+    SpinnerBlackComponent
+    
   ],
   imports: [
     BrowserModule,
