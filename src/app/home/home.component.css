@@ -44,4 +44,7 @@ a{
 .search-card{
     min-height: 300px;
 }
+.signup:hover{
+    cursor: pointer;
+}
 
