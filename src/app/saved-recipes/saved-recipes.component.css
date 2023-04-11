@@ -1,8 +1,21 @@
-.table{
+/* .table{
     margin-top:6%;
     border: 1px solid #ddd;
     padding: 8px;
     ;
 }
-.table th{background-color:rgb(164, 203, 217)}
+.table th{background-color:rgb(164, 203, 217)} */
 /* .table tr{background-color: rgba(82, 96, 100, 0.871);} */
+td:nth-child(2){
+  position: relative;
+}
+
+.remove{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.remove-btn{
+    color: gray;
+}

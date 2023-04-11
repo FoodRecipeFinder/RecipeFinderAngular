@@ -1,11 +1,12 @@
 <ng-progress id="progressBar" [color]="this.progressBarService.color"></ng-progress>
 <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand">Recipe Finder</a>
+    <a class="navbar-brand" routerLink="/home">Recipe Finder</a>
     <ul class="nav nav-pills">
-      <li><a class="nav-link" routerLink="/home">Home</a></li>
+      <!-- <li><a class="nav-link" routerLink="/home">Home</a></li> -->
       <!-- <li><a class="nav-link" routerLink="login">Login</a></li> -->
-      <li *ngIf="status"><a class="nav-link" routerLink="savedRecipes">Saved Recipes</a></li>
-      <li *ngIf="status"><a  class="nav-link" (click)="logout()">Logout</a></li>
+      <!-- <li *ngIf="status"><a class="nav-link" routerLink="savedRecipes">Saved Recipes</a></li> -->
+      <!-- <li *ngIf="status" class="logout"><a class="nav-link" (click)="logout()">Logout</a></li> -->
+      <li *ngIf="status" class="logout"><button type="button" class="btn btn-danger btn-sm" (click)="logout()">Logout</button></li>
     </ul>
 </nav>
 
