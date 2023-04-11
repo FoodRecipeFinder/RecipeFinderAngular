@@ -22,7 +22,7 @@ export class RecipePageComponent implements OnInit , OnDestroy{
   value : boolean | undefined;
   // btnText : String='';
   saveButton:boolean | undefined;
-  
+  showSpinner = true;
   constructor(private route: ActivatedRoute, private router: Router, private recipeService: RecipeService,private service : LoginService){}
   
   ngOnInit(): void{
@@ -37,6 +37,7 @@ export class RecipePageComponent implements OnInit , OnDestroy{
     this.sub = this.recipeService.getRecipeById(id).subscribe({
       next : recipes => {
         this.recipe = recipes.meals[0];
+        this.showSpinner=false;
         this.checkIfSaved();
         let search = this.recipe.strTags.split(',')[0]
         if(!search){
@@ -57,7 +58,6 @@ export class RecipePageComponent implements OnInit , OnDestroy{
           error: err => this.errorMessage = err
         });
         
-       
       },
       error: err => this.errorMessage = err
     });
