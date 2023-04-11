@@ -28,7 +28,7 @@ export class RecipePageComponent implements OnInit , OnDestroy{
   ngOnInit(): void{
     this.userId=JSON.parse(localStorage.getItem("userId")!);
     if(this.userId==null){
-      document.getElementById("saveButton")?.setAttribute('disabled','');
+      document.getElementById("saveButton")?.setAttribute('hidden','');
     }
 
     
