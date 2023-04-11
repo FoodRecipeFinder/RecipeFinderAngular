@@ -7,10 +7,9 @@
         </div>
     </div>
     <div class="row" *ngIf="recipeDetails.length">
-        <div class="col-md-6">Filter By:</div>
+        <div class="col-md-6 align-self-center">Filter By Name:</div>
         <div class="col-md-6">
-            <input type="text" [(ngModel)]="listFilter"/>
-            
+            <input type="text" class="form-control" [(ngModel)]="listFilter"/>
         </div>
     </div>
     <table class="table" *ngIf="recipeDetails.length">
