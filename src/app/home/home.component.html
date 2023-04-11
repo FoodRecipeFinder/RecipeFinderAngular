@@ -45,9 +45,9 @@
                     <br/>
                     <div class="card text-center random-card">
                         <app-spinner *ngIf="showSpinner"></app-spinner>
-                        <div class="spinner-border text-light align-self-center" role="status" *ngIf="showSpinner">
+                        <!-- <div class="spinner-border text-light align-self-center" role="status" *ngIf="showSpinner">
                             <span class="sr-only">Loading...</span>
-                        </div>
+                        </div> -->
                         <a [routerLink]="['/recipe',randomRecipe.idMeal]" target="_blank">
                             <div class="row">
                                 <div class="col-md-6">
@@ -74,13 +74,14 @@
                     </div>
                     <div class="row">
                         <div class="card-columns">
-                            <div class="card text-center" *ngFor="let recipe of searchRecipes">
-                                <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
-                                    <img class="card-img-top" [src]="recipe.strMealThumb"
-                                     />
-                                
+                            <div class="card text-center search-card" *ngFor="let recipe of searchRecipes">
+                                <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank">
+                                    <img class="card-img-top" [src]="recipe.strMealThumb" (load)="loadImage()"
+                                    [hidden]="imgLoad === false" *ngIf="!showSearchSpinner"/>
+                                    
                                     <div class="card-body">
-                                        <h6 class="card-title recipe-title">{{recipe.strMeal}}</h6>
+                                        <h6 class="card-title recipe-title" *ngIf="!showSearchSpinner">{{recipe.strMeal}}</h6>
+                                        <app-spinner-black *ngIf="showSearchSpinner" class="small-spinner"></app-spinner-black>
                                     </div>
                                     <!-- <div class="card-img-overlay">
                                         <h6 class="card-title" style="color: white; font-size: 20px;">{{recipe.strMeal}}</h6>

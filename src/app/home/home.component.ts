@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   ingredients:Ingredient[]=[];
   trivia='';
   showSpinner = true;
+  showSearchSpinner = true;
 
   selectedData:{[index: string]:string}={
     'a':'',
@@ -108,17 +109,20 @@ export class HomeComponent implements OnInit , OnDestroy{
       next : recipes => {
         this.searchRecipes = recipes.meals;
         // this.filteredRecipes = this.recipes;
+        this.showSearchSpinner = false;
       },
       error: err => this.errorMessage = err
     });
   }
 
   getRecipeByData(type:string){
+    this.showSearchSpinner = true;
     this.sub = this.recipeService.getRecipesByData(type,this.selectedData[type]).subscribe({
       next : recipes => {
         this.setOtherDataEmpty(type);
         this.searchRecipes = recipes.meals;
         // this.filteredRecipes = this.recipes;
+        this.showSearchSpinner = false;
       },
       error: err => this.errorMessage = err
     });
@@ -130,5 +134,11 @@ export class HomeComponent implements OnInit , OnDestroy{
         this.selectedData[k]='';
       }
     }
+  }
+
+  imgLoad: boolean = false;
+
+  loadImage() {
+    this.imgLoad = true;
   }
 }
