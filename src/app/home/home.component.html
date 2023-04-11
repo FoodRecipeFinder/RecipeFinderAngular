@@ -132,44 +132,206 @@
                     </table>
                 </div>
                 <!-- whole template for login -->
-                <div class="table-responsive saved-table col-sm-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>Login</h4>
-                        </div>
+
+                <div class="table-responsive saved-table col-sm-4" *ngIf="!loginStatus" style="padding-top: 50px;">
+
+                    <div *ngIf="displayForm == 'loginwithpassword'"><h3>Login</h3><br>
+                  
+                        <!-- Login form starts -->
+                        <form #loginForm="ngForm">
+                  
+                            <!-- Email input -->
+                              <div class="form-outline mb-4">
+                              <label
+                                class="form-label" for="form3Example3">Email Id : </label>
+                  
+                                <input type="email" name="email" #email=ngModel [(ngModel)]="emailId" class="form-control form-control-lg" style="width: 90%;"
+                                    placeholder="Enter Email Address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [ngModelOptions]="{ standalone: true }">
+                                      <div *ngIf="email.errors?.['required'] && email.touched">
+                                          <div style="color: red;">
+                                              Please enter your Email address
+                                          </div>
+                                      </div>
+                                      <div *ngIf="email.errors?.['pattern']">
+                                          <div style="color: red;">
+                                              Please enter a valid Email address
+                                          </div>
+                                      </div>
+                              </div>
+                  
+                              <!-- Password input -->
+                              <div class="form-outline mb-3">
+                                <label class="form-label" for="form3Example4">Password</label>
+                                <input type="password" #pass=ngModel id="form3Example4" class="form-control form-control-lg" [(ngModel)]="password" style="width: 90%;"
+                                [ngModelOptions]="{ standalone: true }" placeholder="Enter password" required="true"/>
+                                <div *ngIf="pass.errors?.['required'] && pass.touched">
+                                  <div style="color: red;">
+                                    Please enter password
+                                  </div>
+                                </div>
+                              </div>
+                  
+                            
+                            <div class="row" style="width:100%;" >
+                              <div class="col-sm-4">
+                              <button type="button" id="loginButton" (click)="userLoginByPassword()" class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem">
+                                Login
+                              </button>
+                              </div>
+                              <div class="col-sm-6">
+                              <p class="small fw-bold mt-2 pt-1 mb-0" style="font-size: 13px;color: blue;">
+                                <a (click)="loginwithotpForm()"><u>Login with otp</u></a><br>
+                                
+                              </p>
+                              </div>
+                            </div>
+                            <div>
+                              <p class="small fw-bold mt-2 pt-1 mb-0">
+                                Don't have an account?
+                                <a class="link-danger" (click)="signupForm()"><u>Signup</u></a>
+                              </p>
+                              </div>
+                          </form>
                     </div>
-                    <!-- template for login -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h6>Login to view save items</h6>
-                        </div>
-                    </div>
-                    <form class="row">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Email address</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="form-row">
-                            <button style="margin-top: 10px;" type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                    <!-- template for otp -->
-                    <!-- <div class="row">
-                        <div class="col-md-12">
-                            <h6>OTP has been sent to xy***@gmail.com</h6>
-                        </div>
-                    </div>
-                    <form class="row">
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">One Time Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter OTP">
+                    <!-- login with password ends -->
+                    <div *ngIf="displayForm == 'loginwithotp'"><h3>Login with otp</h3>
+                  
+                      <!-- Login with Otp form form starts -->
+
+                      <form #loginwithotpForm="ngForm">
+                  
+                        <!-- Email input -->
+                          <div class="form-outline mb-4">
+                          <label
+                            class="form-label" for="form3Example3">Email Id : </label>
+              
+                            <input type="email" name="email" #email=ngModel [(ngModel)]="emailId" class="form-control form-control-lg" style="width: 90%;"
+                                placeholder="Enter Email Address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [ngModelOptions]="{ standalone: true }">
+                                  <div *ngIf="email.errors?.['required'] && email.touched">
+                                      <div style="color: red;">
+                                          Please enter your Email address
+                                      </div>
+                                  </div>
+                                  <div *ngIf="email.errors?.['pattern']">
+                                      <div style="color: red;">
+                                          Please enter a valid Email address
+                                      </div>
+                                  </div>
                           </div>
-                        <div class="form-row">
-                            <button style="margin-top: 10px;" type="submit" class="btn btn-primary">Submit</button>
+                          
+                          <!-- Password input -->
+                          <div class="row">
+                          <div class="col-sm-8">
+                            <label class="form-label" for="form3Example4">One Time Password : </label>
+                            <input type="number" #otppass=ngModel id="form3Example4" class="form-control form-control-lg" [(ngModel)]="otp" style="width: 90%;"
+                            [ngModelOptions]="{ standalone: true }" placeholder="Enter password" required="true"/>
+                            <div *ngIf="otppass.errors?.['required'] && otppass.touched">
+                              <div style="color: red;">
+                                Please enter password
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-4" style="padding-top: 10px;"><br>
+                            <button class="btn btn-outline-primary" id="sendOtpButton" (click)="sendOtpFunction()">{{sendOtpButtonVar}}</button>
+                          </div>
+                          
                         </div>
-                    </form> -->
+              
+                        <br>
+                        <div class="row" style="width:100%;" >
+                          <div class="col-sm-4">
+                          <button type="button" id="loginByOtpButton" (click)="checkOtpLogin()" class="btn btn-primary btn-lg"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem">
+                            Login
+                          </button>
+                          </div>
+                          <div class="col-sm-8">
+                          <p class="small fw-bold mt-2 pt-1 mb-0" style="font-size: 13px;color: blue;">
+                            <a (click)="loginwithpasswordForm()"><u>Login with password</u></a><br>
+                            
+                          </p>
+                          </div>
+                        </div>
+                        <div>
+                          <p class="small fw-bold mt-2 pt-1 mb-0">
+                            Don't have an account?
+                            <a class="link-danger" (click)="signupForm()"><u>Signup</u></a>
+                          </p>
+                          </div>
+                      </form>
+                        <!-- Login with Otp form form ends -->
+                    </div>
+
+
+                    <div *ngIf="displayForm == 'signupForm'"><h3>signup</h3>
+                  
+                        <!-- Login with Otp form form starts -->
+  
+                        <form #loginwithotpForm="ngForm">
+                    
+                          <!-- Email input -->
+                            <div class="form-outline mb-4">
+                            <label
+                              class="form-label" for="form3Example3">Email Id : </label>
+                
+                              <input type="email" name="email" #email=ngModel [(ngModel)]="userData.email" class="form-control form-control-lg" style="width: 90%;"
+                                  placeholder="Enter Email Address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [ngModelOptions]="{ standalone: true }">
+                                    <div *ngIf="email.errors?.['required'] && email.touched">
+                                        <div style="color: red;">
+                                            Please enter your Email address
+                                        </div>
+                                    </div>
+                                    <div *ngIf="email.errors?.['pattern']">
+                                        <div style="color: red;">
+                                            Please enter a valid Email address
+                                        </div>
+                                    </div>
+                            </div>
+                            
+                            <!-- Password input -->
+                            <div>
+                              <label class="form-label" for="form3Example4">Password : </label>
+                              <input type="password" #otppass=ngModel id="form3Example4" class="form-control form-control-lg" [(ngModel)]="userData.password" style="width: 90%;"
+                              [ngModelOptions]="{ standalone: true }" placeholder="Enter password" required="true"/>
+                              <div *ngIf="otppass.errors?.['required'] && otppass.touched">
+                                <div style="color: red;">
+                                  Please enter password
+                                </div>
+                              </div>
+                            </div>
+                            
+                            
+                          <br>
+                          <div class="row" style="width:100%;" >
+                            <div class="col-sm-4">
+                            <button type="button" id="loginByOtpButton" (click)="userSignUp()" class="btn btn-primary btn-lg"
+                              style="padding-left: 2.5rem; padding-right: 2.5rem">
+                              SignUp
+                            </button>
+                            </div>
+                          </div>
+                        </form>
+                          <!-- Signup form form ends -->
+                          <div>
+                            <p class="small fw-bold mt-2 pt-1 mb-0">
+                              Already have an account?
+                              <a class="link-danger" (click)="loginwithpasswordForm()"><u>Login</u></a>
+                            </p>
+                            </div>
+                    </div>
+                  </div>
+
+
+                  
+                  <div class="table-responsive saved-table col-sm-2" *ngIf="loginStatus">
+                     <!-- after login -->
                 </div>
+                <!-- after login content ends -->
+                
+
+                <!-- login template ends -->
+
             </div>
         </div>
     </div>

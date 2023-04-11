@@ -1,3 +1,5 @@
+import { savedRecipesDTO } from "../saved-recipes/savedRecipesDTO";
+
 export interface Area{
     strArea: String
 }
@@ -15,4 +17,12 @@ export interface Category{
 
 export interface SpoonText{
     text:string;
+}
+
+
+export class User{
+    userId:number;
+    email:string;
+    password:string;
+    savedRecipes:savedRecipesDTO[];
 }

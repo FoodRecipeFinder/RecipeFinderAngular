@@ -1,27 +1,36 @@
+<!-- userid : {{userId}} -->
 
-<table class="table" >
-    <thead>
-        <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Cuisine</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor = "let recipe of recipeDetails">
-            <td>
-                <img [src]="recipe.strMealThumb" style="width: 150px;margin-left: 10px;">
-            </td>
-            <td>
-                <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
-                    {{ recipe.strMeal }}
-                </a>
-            </td>
-            <td>{{recipe.strCategory}}</td>
-            <td>{{recipe.strArea}}</td>
-
-            <td><button class="btn btn-primary" (click)="removeRecipe(recipe.idMeal)">Remove</button></td>
-        </tr>
-    </tbody>
-</table>
+<div class="container" *ngIf="loginStatus">
+    <table class="table" >
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Cuisine</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="recipeDetails.length">
+            <tr *ngFor = "let recipe of recipeDetails">
+                <td>
+                    <img [src]="recipe.strMealThumb" style="width: 150px;margin-left: 10px;">
+                </td>
+                <td>
+                    <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
+                        {{ recipe.strMeal }}
+                    </a>
+                </td>
+                <td>{{recipe.strCategory}}</td>
+                <td>{{recipe.strArea}}</td>
+    
+                <td><button class="btn btn-primary" (click)="removeRecipe(recipe.idMeal)">Remove</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="!recipeDetails.length" style="font-size: 15px;font-weight: bolder; text-align: center;">No recipes to show</div>
+</div>
+<div *ngIf="!loginStatus">
+    <!-- Session timeout. Please login again!!! -->
+    <app-home></app-home>
+</div>
