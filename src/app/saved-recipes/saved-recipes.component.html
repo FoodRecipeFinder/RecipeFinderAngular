@@ -20,7 +20,7 @@
         <thead>
             <tr>
                 <th>Image</th>
-                <th>Name</th>
+                <th>Recipe Name</th>
                 <!-- <th>Category</th> -->
                 <!-- <th>Cuisine</th> -->
                 <!-- <th>Ac tion</th> -->
@@ -29,10 +29,10 @@
         <tbody>
             <tr *ngFor = "let recipe of filteredRecipes">
                 <td>
-                    <img [src]="recipe.strMealThumb" style="width: 100px;">
+                    <img [src]="recipe.strMealThumb" style="width:80px;">
                 </td>
                 <td>
-                    <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" [state]="recipe">
+                    <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank" class="saved-row">
                         {{ recipe.strMeal }}
                     </a>
                     <div class="remove">
