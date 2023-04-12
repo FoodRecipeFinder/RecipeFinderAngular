@@ -106,7 +106,8 @@ export class RecipePageComponent implements OnInit , OnDestroy{
           
       console.log("uid :",this.userId,"mid : ",this.recipe.idMeal)
           alert("Recipe saved");
-          window.location.reload();
+          // window.location.reload();
+          this.ngOnInit();
         }
         else{
           alert('Something went wrong!!! Try again');
