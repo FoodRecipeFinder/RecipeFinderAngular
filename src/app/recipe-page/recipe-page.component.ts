@@ -31,7 +31,6 @@ export class RecipePageComponent implements OnInit , OnDestroy{
       document.getElementById("saveButton")?.setAttribute('hidden','');
     }
 
-    
     const id = Number(this.route.snapshot.paramMap.get('id'));  
     // this.recipe = history.state;
     this.sub = this.recipeService.getRecipeById(id).subscribe({
@@ -39,16 +38,28 @@ export class RecipePageComponent implements OnInit , OnDestroy{
         this.recipe = recipes.meals[0];
         this.showSpinner=false;
         this.checkIfSaved();
-        let search = this.recipe.strTags.split(',')[0]
-        if(!search){
+        let search: string;
+        if(this.recipe.strTags === null || !this.recipe.strTags.split(',')[0]){
+          console.log("catyegory recommend");
           search = this.recipe.strCategory;
+          this.nestedSub = this.recipeService.getRecipesByData('c',search).subscribe({
+            next : meal => {
+              this.recommendRecipes = meal.meals.slice(0,5);
+            },
+            error: err => this.errorMessage = err
+          });
         }
-        this.nestedSub = this.recipeService.getRecipesByName(search).subscribe({
-          next : meal => {
-            this.recommendRecipes = meal.meals.slice(0,5);
-          },
-          error: err => this.errorMessage = err
-        });
+        else{
+          console.log("tag recommend");
+          search = this.recipe.strTags.split(',')[0];
+          this.nestedSub = this.recipeService.getRecipesByName(search).subscribe({
+            next : meal => {
+              this.recommendRecipes = meal.meals.slice(0,5);
+            },
+            error: err => this.errorMessage = err
+          });
+        }
+        
         this.nestedSub = this.recipeService.getNutritionByName(this.recipe.strMeal).subscribe({
           next : nut => {
             

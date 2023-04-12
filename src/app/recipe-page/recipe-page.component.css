@@ -15,11 +15,14 @@
 }
 .title{
     font-size: 30px;
+    font-weight: 600;
+    /* text-decoration: underline; */
     font-family: 'Times New Roman', Times, serif;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 .content{
     font-size: 18px;
+    white-space: pre-line;
 }
 ul{
     padding-left:1em !important;
@@ -38,4 +41,13 @@ a{
 }
 .nutrition{
     font-weight: 500;
+}
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black !important;
+    margin: 1em 0;
+    padding: 0;
+    transition: all 1s;
 }
