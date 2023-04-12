@@ -18,7 +18,7 @@ export class SavedRecipesComponent {
   recipeDetails: recipe[] = [];
   savedRecipeId : number | undefined;
   loginStatus:boolean=false;
-
+  showSavedListSpinner = true;
   filteredRecipes: recipe[]=[];
   private _listFilter:string = '';
   get listFilter(): string{
@@ -48,12 +48,14 @@ export class SavedRecipesComponent {
   getAllRecipes(){
     this.service.savedRecipes(this.userId!).subscribe(
       recipe  =>{
+        this.recipeDetails=[];
         this.getMealId = recipe;
         recipe.forEach( (element) => {
           // this.savedRecipeId = element.id;
           this.mealId=element.mealId;
           // console.log( this.mealId , " ",this.savedRecipeId," ",this.userId);
           this.getRecipeDetails(this.mealId);
+          this.filteredRecipes = this.recipeDetails;
       });
       // console.log(JSON.stringify(this.getMealId));
       } 
@@ -64,7 +66,7 @@ export class SavedRecipesComponent {
     this.recipeService.getRecipeById(mealID).subscribe({
       next : data =>{
         this.recipeDetails.push(data.meals[0]);
-        this.filteredRecipes = this.recipeDetails;
+        this.showSavedListSpinner = false;
       }
     });
   }
@@ -78,7 +80,10 @@ export class SavedRecipesComponent {
           res=>{
             if(res){
               alert('Recipe removed');
-              window.location.reload();
+              
+              // window.location.reload();
+              this.ngOnInit();
+              this.showSavedListSpinner=true;
             }
             else{
               alert('Something went wrong!!! Try again')

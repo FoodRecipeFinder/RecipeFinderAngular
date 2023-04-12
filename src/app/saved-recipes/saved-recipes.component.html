@@ -5,6 +5,10 @@
         <div class="col-md-12">
             <h4>Saved List</h4>
         </div>
+        
+    </div>
+    <div class="row" *ngIf="showSavedListSpinner">
+        <app-spinner-black class="col-md-4 offset-md-5 align-self-center"></app-spinner-black>
     </div>
     <div class="row" *ngIf="recipeDetails.length">
         <div class="col-md-6 align-self-center">Filter By Name:</div>

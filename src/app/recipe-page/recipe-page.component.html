@@ -23,6 +23,7 @@
                 <i class="fa fa-bookmark" aria-hidden="true"></i>
             </button>
         </div>
+        <hr/>
         <ul class="content">
             <li *ngIf="recipe.strIngredient1">{{recipe.strMeasure1}} {{recipe.strIngredient1}}</li>
             <li *ngIf="recipe.strIngredient2">{{recipe.strMeasure2}} {{recipe.strIngredient2}}</li>
@@ -48,16 +49,17 @@
     </div>
     <div class="row">
         <div class="title">Instructions</div>
+        <hr/>
         <div>
             <app-spinner-black *ngIf="showSpinner"></app-spinner-black>
         </div>
         <div class="content">
-            
-            {{recipe.strInstructions}}
+            {{recipe.strInstructions | step }}
         </div>
     </div>
     <div class="row" *ngIf="nutritionRecipe!=undefined">
-        <div class="title">Nutrition Facts</div>
+        <div class="title">Nutrition Facts<h5 style="display:inline">  (per serving)</h5></div>
+        <hr/>
         <div class="row content">
             <div class="col-md-1 nutrition">
                 {{nutritionRecipe.calories.value}}
@@ -88,7 +90,8 @@
         </div>
     </div>
     <div class="row" *ngIf="recommendRecipes.length">
-        <div class="title">You'll Also Love</div>
+        <div class="title" style="margin-top: 100px;">You'll Also Love</div>
+        
         <div class="row">
             <div class="card-columns">
                 <div class="card text-center recommend-card" *ngFor="let recipe of recommendRecipes">

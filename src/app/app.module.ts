@@ -15,6 +15,7 @@ import { SavedRecipesComponent } from './saved-recipes/saved-recipes.component';
 import { FooterComponent } from './footer/footer.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { SpinnerBlackComponent } from './shared/spinner/spinner-black.component';
+import { StepPipe } from './shared/step.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SpinnerBlackComponent } from './shared/spinner/spinner-black.component'
     SavedRecipesComponent,
     FooterComponent,
     SpinnerComponent,
-    SpinnerBlackComponent
+    SpinnerBlackComponent,
+    StepPipe
     
   ],
   imports: [
