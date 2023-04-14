@@ -5,6 +5,7 @@ import { nutrition, recipe } from './recipe';
 import { RecipeService } from './recipe.service';
 import { LoginService } from '../login-service.service';
 import { state } from '@angular/animations';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-recipe-page',
@@ -23,7 +24,7 @@ export class RecipePageComponent implements OnInit , OnDestroy{
   // btnText : String='';
   saveButton:boolean | undefined;
   showSpinner = true;
-  constructor(private route: ActivatedRoute, private router: Router, private recipeService: RecipeService,private service : LoginService){}
+  constructor(private route: ActivatedRoute, private router: Router, private recipeService: RecipeService,private service : LoginService,private titleService: Title){}
   
   ngOnInit(): void{
     this.userId=JSON.parse(localStorage.getItem("userId")!);
@@ -36,6 +37,7 @@ export class RecipePageComponent implements OnInit , OnDestroy{
     this.sub = this.recipeService.getRecipeById(id).subscribe({
       next : recipes => {
         this.recipe = recipes.meals[0];
+        this.titleService.setTitle(this.recipe.strMeal)
         this.showSpinner=false;
         this.checkIfSaved();
         let search: string;
