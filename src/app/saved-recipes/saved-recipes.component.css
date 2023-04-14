@@ -23,7 +23,8 @@ td:nth-child(2){
     color: gray;
 }
 .remove-btn:hover{
-    color: red;
+    color: #ffffff;
+    background-color: #bb2d3b;
 }
 .saved-row{
     text-decoration: none;

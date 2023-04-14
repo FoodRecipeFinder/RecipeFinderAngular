@@ -91,6 +91,7 @@ export class SavedRecipesComponent {
               // window.location.reload();
               this.ngOnInit();
               this.showSavedListSpinner=false;
+              this.refreshDisable = true;
             }
             else{
               alert('Something went wrong!!! Try again')
