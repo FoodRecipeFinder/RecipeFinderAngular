@@ -123,6 +123,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   }
 
   searchRecipe(): void{
+    this.showSearchSpinner = true;
     this.sub = this.recipeService.getRecipesByName(this.search).subscribe({
       next : recipes => {
         this.searchRecipes = recipes.meals;
