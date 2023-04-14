@@ -23,7 +23,8 @@ td:nth-child(2){
     color: gray;
 }
 .remove-btn:hover{
-    color: red;
+    color: #ffffff;
+    background-color: #bb2d3b;
 }
 .saved-row{
     text-decoration: none;
@@ -32,3 +33,14 @@ td:nth-child(2){
 .saved-row:hover{
     text-decoration: underline;
 }
+.refresh-icon{
+    animation: loading 1s linear infinite;
+}
+@keyframes loading {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

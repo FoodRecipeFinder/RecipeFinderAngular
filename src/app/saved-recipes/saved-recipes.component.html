@@ -2,10 +2,12 @@
 
 <div class="container" *ngIf="loginStatus">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <h4>Saved List</h4>
         </div>
-        
+        <div class="col-md-1">
+            <button (click)="refresh()" [disabled]="refreshDisable" class="btn btn-outline-primary btn-sm"><i class="fa fa-refresh" [ngClass]="refreshDisable ? 'refresh-icon' : '' " aria-hidden="true"></i></button>
+        </div>
     </div>
     <div class="row" *ngIf="showSavedListSpinner">
         <app-spinner-black class="col-md-4 offset-md-5 align-self-center"></app-spinner-black>
@@ -15,6 +17,7 @@
         <div class="col-md-6">
             <input type="text" class="form-control" [(ngModel)]="listFilter"/>
         </div>
+        
     </div>
     <table class="table" *ngIf="recipeDetails.length">
         <thead>
@@ -37,7 +40,7 @@
                     </a>
                     <div class="remove">
                         <!-- <button class="btn btn-link btn-sm remove-btn" (click)="removeRecipe(recipe.idMeal)">remove</button> -->
-                        <button class="btn btn-link remove-btn" (click)="removeRecipe(recipe.idMeal)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        <button class="btn btn-link remove-btn btn-sm" (click)="removeRecipe(recipe.idMeal)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                     </div>
                 </td>
                 <!-- <td>{{recipe.strCategory}}</td> -->
@@ -51,7 +54,7 @@
             </tr>
         </tbody>
     </table>
-    <div *ngIf="!recipeDetails.length" style="font-size: 20px; text-align: center; margin-top: 50px;">
+    <div *ngIf="!recipeDetails.length && !showSavedListSpinner" style="font-size: 20px; text-align: center; margin-top: 50px;">
         <!-- No recipes to show<br/> -->
         Save Recipes to View them here
     </div>

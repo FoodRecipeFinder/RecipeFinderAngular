@@ -27,7 +27,7 @@ export class RecipeService{
 
     //search
     getRecipesByName(name:string): Observable<meals>{
-        // this.progressBarService.startLoading();
+        this.progressBarService.startLoading();
         return this.http.get<meals>(this.mealDBUrl+"/search?name="+name).pipe(
             tap( data => {
                 console.log('search for '+name,JSON.stringify(data));

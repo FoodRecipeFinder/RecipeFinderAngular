@@ -20,6 +20,7 @@ export class SavedRecipesComponent {
   loginStatus:boolean=false;
   showSavedListSpinner = true;
   filteredRecipes: recipe[]=[];
+  refreshDisable: boolean = false;
   private _listFilter:string = '';
   get listFilter(): string{
     return this._listFilter;
@@ -43,6 +44,7 @@ export class SavedRecipesComponent {
       alert('Session timeout. Please login again!!!');
     }  
     this.getAllRecipes();
+    
   }
   
   getAllRecipes(){
@@ -60,15 +62,20 @@ export class SavedRecipesComponent {
       // console.log(JSON.stringify(this.getMealId));
       } 
     )
+    if(this.recipeDetails.length === 0) this.showSavedListSpinner = false
+    
   }
 
   getRecipeDetails(mealID:number){
+    this.showSavedListSpinner = true;
     this.recipeService.getRecipeById(mealID).subscribe({
       next : data =>{
         this.recipeDetails.push(data.meals[0]);
         this.showSavedListSpinner = false;
+        this.refreshDisable = false;
       }
     });
+    
   }
   
   removeRecipe(mealID:number){
@@ -83,7 +90,8 @@ export class SavedRecipesComponent {
               
               // window.location.reload();
               this.ngOnInit();
-              this.showSavedListSpinner=true;
+              this.showSavedListSpinner=false;
+              this.refreshDisable = true;
             }
             else{
               alert('Something went wrong!!! Try again')
@@ -93,6 +101,12 @@ export class SavedRecipesComponent {
         
       }
     )
+  }
+
+  refresh(){
+    this.refreshDisable = true;
+    this.showSavedListSpinner = true;
+    this.ngOnInit();
   }
 
 }

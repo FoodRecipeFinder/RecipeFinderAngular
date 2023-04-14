@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   }
   randomRecipe!:recipe;
   recipes:recipe[] = [];
-  searchRecipes:recipe[] = [];
+  searchRecipes!:recipe[];
 
   areas:Area[]=[];
   categories:Category[]=[];
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   trivia='';
   showSpinner = true;
   showSearchSpinner = true;
-
+  showStartPage = true;
   selectedData:{[index: string]:string}={
     'a':'',
     'c':'',
@@ -123,17 +123,29 @@ export class HomeComponent implements OnInit , OnDestroy{
   }
 
   searchRecipe(): void{
+    this.showStartPage = false;
+    this.showSearchSpinner = true;
     this.sub = this.recipeService.getRecipesByName(this.search).subscribe({
       next : recipes => {
-        this.searchRecipes = recipes.meals;
+        if(recipes.meals){
+          this.searchRecipes = recipes.meals;
         // this.filteredRecipes = this.recipes;
-        this.showSearchSpinner = false;
+          this.showSearchSpinner = false;
+        }
+        else{
+          console.log("elo")
+          this.showSearchSpinner = false;
+          this.searchRecipes = [];
+        }
       },
       error: err => this.errorMessage = err
     });
+    if(!this.searchRecipes.length) console.log("empltafdsdf")
+    
   }
 
   getRecipeByData(type:string){
+    this.showStartPage = false;
     this.showSearchSpinner = true;
     this.sub = this.recipeService.getRecipesByData(type,this.selectedData[type]).subscribe({
       next : recipes => {

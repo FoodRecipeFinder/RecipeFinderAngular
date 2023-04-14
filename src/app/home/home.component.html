@@ -26,7 +26,7 @@
                 </div>
                 <!-- <div class="col-md-1 offset-md-2">Search:</div> -->
                 <div class="offset-md-3 col-md-2">
-                    <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search" />
+                    <input type="text" class="form-control" (keydown.enter)='searchRecipe()' [(ngModel)]="search" placeholder="Search" />
                 </div>
                 <div class="col-md-1">
                     <button class="btn btn-outline-primary" (click)="searchRecipe()">Search</button>
@@ -37,7 +37,7 @@
             </div>
             <br/>
             <div class="row justify-content-end">
-                <div class="table-responsive search-table col-sm-8" *ngIf="!searchRecipes.length">
+                <div class="table-responsive search-table col-sm-8" *ngIf="showStartPage">
                     <br/>
                     <div class="container trivia">
                         <h4>{{trivia}}</h4>
@@ -66,13 +66,16 @@
                         </a>
                     </div>
                 </div>
-                <div class="table-responsive search-table col-sm-8" *ngIf="searchRecipes.length">
+                <div class="table-responsive search-table col-sm-8" *ngIf="!showStartPage">
                     <div class="row">
                         <div class="col-md-6">
                             <h4>Search</h4>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="!searchRecipes.length">
+                      <h2>No Results Found</h2>
+                    </div>
+                    <div class="row" *ngIf="recipes.length">
                         <div class="card-columns">
                             <div class="card text-center search-card" *ngFor="let recipe of searchRecipes">
                                 <a [routerLink]="['/recipe',recipe.idMeal]" target="_blank">
