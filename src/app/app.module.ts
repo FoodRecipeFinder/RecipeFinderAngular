@@ -16,6 +16,8 @@ import { FooterComponent } from './footer/footer.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { SpinnerBlackComponent } from './shared/spinner/spinner-black.component';
 import { StepPipe } from './shared/step.pipe';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogboxComponent } from './dialogbox/dialogbox.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { StepPipe } from './shared/step.pipe';
     FooterComponent,
     SpinnerComponent,
     SpinnerBlackComponent,
-    StepPipe
+    StepPipe,
+    DialogboxComponent
     
   ],
   imports: [
@@ -37,11 +40,13 @@ import { StepPipe } from './shared/step.pipe';
     FormsModule,
     HttpClientModule,
     NgProgressModule,
+    MatDialogModule,
     RouterModule.forRoot([
       {path: 'home',component: HomeComponent},
       {path: 'recipe/:id',canActivate: [RecipePageGuard],component: RecipePageComponent},
       {path: 'login',component:UserLoginComponent},
       {path: 'savedRecipes',component:SavedRecipesComponent},
+      {path: 'dialog',component:DialogboxComponent},
       {path: '**', redirectTo:'/home',pathMatch:'full'}
     ])
 
