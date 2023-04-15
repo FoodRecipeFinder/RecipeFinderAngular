@@ -8,7 +8,8 @@
     font-size: 45px;
     font-weight: 600;
     color: white;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Roboto Slab','Times New Roman', Times, serif;
+
 }
 .top{
     background-color: black;
@@ -17,7 +18,7 @@
     font-size: 30px;
     font-weight: 600;
     /* text-decoration: underline; */
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Roboto Slab','Times New Roman', Times, serif;
     margin-top: 40px;
 }
 .content{

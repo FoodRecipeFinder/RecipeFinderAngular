@@ -6,6 +6,8 @@ import { RecipeService } from './recipe.service';
 import { LoginService } from '../login-service.service';
 import { state } from '@angular/animations';
 import { Title } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { ModelPopupComponent } from '../model-popup/model-popup.component';
 
 @Component({
   selector: 'app-recipe-page',
@@ -24,7 +26,8 @@ export class RecipePageComponent implements OnInit , OnDestroy{
   // btnText : String='';
   saveButton:boolean | undefined;
   showSpinner = true;
-  constructor(private route: ActivatedRoute, private router: Router, private recipeService: RecipeService,private service : LoginService,private titleService: Title){}
+  constructor(private route: ActivatedRoute, private router: Router, private recipeService: RecipeService,private service : LoginService,
+    private titleService: Title,private dialogRef:MatDialog){}
   
   ngOnInit(): void{
     this.userId=JSON.parse(localStorage.getItem("userId")!);
@@ -107,12 +110,26 @@ export class RecipePageComponent implements OnInit , OnDestroy{
         if(state){
           
       console.log("uid :",this.userId,"mid : ",this.recipe.idMeal)
-          alert("Recipe saved");
+
+      this.dialogRef.open(ModelPopupComponent,{
+        data : {
+          text:'Recipe Saved Successfully'
+        }
+      },
+      );
+          // alert("Recipe saved");
+
           // window.location.reload();
           this.ngOnInit();
         }
         else{
-          alert('Something went wrong!!! Try again');
+          this.dialogRef.open(ModelPopupComponent,{
+            data : {
+              text:'Something went wrong!!! Try again'
+            }
+          },
+          );
+          // alert('Something went wrong!!! Try again');
         }
       }
     )

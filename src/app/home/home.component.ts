@@ -6,6 +6,8 @@ import { DataService } from '../shared/data.service';
 import { Area, Category, Ingredient, User } from '../shared/Dto';
 import { LoginService } from '../login-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ModelPopupComponent } from '../model-popup/model-popup.component';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +39,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   categories:Category[]=[];
   ingredients:Ingredient[]=[];
   trivia='';
+  joke='';
   showSpinner = true;
   showSearchSpinner = true;
   showStartPage = true;
@@ -105,7 +108,12 @@ export class HomeComponent implements OnInit , OnDestroy{
     this.sub = this.dataService.getTrivia().subscribe({
       next: spoon =>{
         this.trivia = spoon.text;
-        console.log("hello");
+      },
+      error: err => this.errorMessage = err
+    });
+    this.sub = this.dataService.getJoke().subscribe({
+      next: spoon =>{
+        this.joke = spoon.text;
       },
       error: err => this.errorMessage = err
     });
@@ -115,7 +123,7 @@ export class HomeComponent implements OnInit , OnDestroy{
       this.sub.unsubscribe();
   }
 
-  constructor(private recipeService: RecipeService, private dataService:DataService , private service:LoginService,private route:Router){}
+  constructor(private dialogRef:MatDialog,private recipeService: RecipeService, private dataService:DataService , private service:LoginService,private route:Router){}
 
   performFilter(filterBy: string) :recipe[]{
     filterBy = filterBy.toLowerCase();
@@ -200,18 +208,36 @@ export class HomeComponent implements OnInit , OnDestroy{
                   // console.log("User : ",sessionStorage.getItem("userId"));
                 }
               )
-              alert('Login Successful');
+              this.dialogRef.open(ModelPopupComponent,{
+                data : {
+                  text:'Login Successful'
+                }
+              },
+              );
+              // alert('Login Successful');
               window.location.reload();
             }
             else{
               console.log("failed  "+this.isValid);
-              alert('Invalid Credentials')
+              this.dialogRef.open(ModelPopupComponent,{
+                data : {
+                  text:'Invalid Credentials'
+                }
+              },
+              );
+              // alert('Invalid Credentials')
             }
       
           });
         }
         else{
-          alert('User Does Not Exists...')
+          this.dialogRef.open(ModelPopupComponent,{
+            data : {
+              text:'User Does Not Exist'
+            }
+          },
+          );
+          // alert('User Does Not Exists...')
         }
       }
     )
@@ -229,17 +255,35 @@ export class HomeComponent implements OnInit , OnDestroy{
             status=>{
               if(status){
                 this.sendOtpButtonVar = "Resend OTP";
-                alert('Otp send to '+this.emailId);
+                this.dialogRef.open(ModelPopupComponent,{
+                  data : {
+                    text:'Otp send to '+this.emailId
+                  }
+                },
+                );
+                // alert('Otp send to '+this.emailId);
               }
               else{
-                alert("Something went wrong");
+                this.dialogRef.open(ModelPopupComponent,{
+                  data : {
+                    text:'Something went wrong'
+                  }
+                },
+                );
+                // alert("Something went wrong");
               }
             }
           )
         }
         else{
           console.log("otp not sent");
-          alert('User Does Not Exists...\nPlease enter registered emailId')
+          this.dialogRef.open(ModelPopupComponent,{
+            data : {
+              text:'User Does Not Exists...\nPlease enter registered emailId'
+            }
+          },
+          );
+          // alert('User Does Not Exists...\nPlease enter registered emailId')
         }
       }
 
@@ -259,11 +303,18 @@ export class HomeComponent implements OnInit , OnDestroy{
                 // console.log("User : ",sessionStorage.getItem("userId"));
               }
             )
-            alert('Login Successful');
+            this.dialogRef.open(ModelPopupComponent,{
+              data : {
+                text:'Login Successful'
+              }
+            },
+            );
+            // alert('Login Successful');
             window.location.reload();
           }
           else{
-            alert('Invalid Otp');
+            this.dialogRef.open(ModelPopupComponent,{data : {text:'Invalid Otp'} },);
+            // alert('Invalid Otp');
           }
         }
       )
@@ -276,7 +327,8 @@ export class HomeComponent implements OnInit , OnDestroy{
     this.service.emailExists(this.userData.email).subscribe(
       res=>{
         if(res){
-          alert('EmailId already registered\nPlease use another emailId or login');
+          this.dialogRef.open(ModelPopupComponent,{data : {text:'EmailId already registered\nPlease use another emailId or login'} },);
+          // alert('EmailId already registered\nPlease use another emailId or login');
         }
         else{
             console.log("user : "+JSON.stringify(this.userData));
@@ -284,11 +336,13 @@ export class HomeComponent implements OnInit , OnDestroy{
             this.service.signUp(this.userData).subscribe(
               data=>{
                 if(data){
-                  alert('Signup successful');
+                  this.dialogRef.open(ModelPopupComponent,{data : {text:'Signup successfu'} },);
+                  // alert('Signup successful');
                   window.location.reload()
                 }
                 else{
-                  alert('Something went wrong!!! Please try again')
+                  this.dialogRef.open(ModelPopupComponent,{data : {text:'Something went wrong!!! Please try again'} },);
+                  // alert('Something went wrong!!! Please try again')
                 }
               }
             )

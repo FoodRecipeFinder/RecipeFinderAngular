@@ -3,8 +3,10 @@ import { LoginService } from '../login-service.service';
 import { savedRecipesDTO } from './savedRecipesDTO';
 import { RecipeService } from '../recipe-page/recipe.service';
 import { recipe } from '../recipe-page/recipe';
+import{MatDialog} from '@angular/material/dialog'
 import { Observable } from 'rxjs';
 import { meals } from '../recipe-page/meal';
+import { ModelPopupComponent } from '../model-popup/model-popup.component';
 
 @Component({
   selector: 'app-saved-recipes',
@@ -35,13 +37,14 @@ export class SavedRecipesComponent {
     return this.recipeDetails.filter((recipe : recipe )=>recipe.strMeal.toLowerCase().includes(filterBy));
   }
 
-  constructor(private recipeService: RecipeService,private service : LoginService){}
+  constructor(private recipeService: RecipeService,private service : LoginService,private dialodRef:MatDialog){}
 
   ngOnInit():void{
     this.userId=JSON.parse(localStorage.getItem("userId")!);
     if(this.userId!=null) {this.loginStatus=true;}   
     else{
-      alert('Session timeout. Please login again!!!');
+      this.dialodRef.open(ModelPopupComponent,{data:{text:'Session timeout. Please login again!!!'}})
+      // alert('Session timeout. Please login again!!!');
     }  
     this.getAllRecipes();
     
@@ -86,7 +89,8 @@ export class SavedRecipesComponent {
         this.service.removeRecipe(this.savedRecipeId).subscribe(
           res=>{
             if(res){
-              alert('Recipe removed');
+              this.dialodRef.open(ModelPopupComponent,{data:{text:'Recipe removed'}})
+              // alert('Recipe removed');
               
               // window.location.reload();
               this.ngOnInit();
@@ -94,7 +98,8 @@ export class SavedRecipesComponent {
               this.refreshDisable = true;
             }
             else{
-              alert('Something went wrong!!! Try again')
+              this.dialodRef.open(ModelPopupComponent,{data:{text: 'Something went wrong!!! Try again'}})
+              // alert('Something went wrong!!! Try again')
             }
           }
         );
