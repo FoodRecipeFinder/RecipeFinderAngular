@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   categories:Category[]=[];
   ingredients:Ingredient[]=[];
   trivia='';
+  joke='';
   showSpinner = true;
   showSearchSpinner = true;
   showStartPage = true;
@@ -105,7 +106,12 @@ export class HomeComponent implements OnInit , OnDestroy{
     this.sub = this.dataService.getTrivia().subscribe({
       next: spoon =>{
         this.trivia = spoon.text;
-        console.log("hello");
+      },
+      error: err => this.errorMessage = err
+    });
+    this.sub = this.dataService.getJoke().subscribe({
+      next: spoon =>{
+        this.joke = spoon.text;
       },
       error: err => this.errorMessage = err
     });

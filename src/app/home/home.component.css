@@ -26,19 +26,30 @@
 a{
     text-decoration: none;
 }
+.trivia-title{
+    font-family: 'Roboto Slab','Times New Roman', Times, serif;
+}
 .trivia{
- font-family: 'Times New Roman', Times, serif;
- font-style: italic;   
+ font-family: 'Roboto Slab','Times New Roman', Times, serif;
+ /* font-style: italic; */
+ color: white;
+ background-color: black;
+ width: 98%;
+ margin: 1%;
+ margin-bottom: 30px;
+ /* text-align: center; */
+
 }
 .random-card{
     width: 98%;
     margin: 1%;
     background-color: black;
     min-height: 400px;
+    margin-bottom: 30px;
 }
 .random-card-title{
     font-size: 50px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Roboto Slab','Times New Roman', Times, serif;
     color: white;
 }
 .search-card{
