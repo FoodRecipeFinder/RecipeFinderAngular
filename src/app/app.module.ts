@@ -17,7 +17,6 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { SpinnerBlackComponent } from './shared/spinner/spinner-black.component';
 import { StepPipe } from './shared/step.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogboxComponent } from './dialogbox/dialogbox.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +30,6 @@ import { DialogboxComponent } from './dialogbox/dialogbox.component';
     SpinnerComponent,
     SpinnerBlackComponent,
     StepPipe,
-    DialogboxComponent
     
   ],
   imports: [
@@ -46,7 +44,6 @@ import { DialogboxComponent } from './dialogbox/dialogbox.component';
       {path: 'recipe/:id',canActivate: [RecipePageGuard],component: RecipePageComponent},
       {path: 'login',component:UserLoginComponent},
       {path: 'savedRecipes',component:SavedRecipesComponent},
-      {path: 'dialog',component:DialogboxComponent},
       {path: '**', redirectTo:'/home',pathMatch:'full'}
     ])
 

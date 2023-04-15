@@ -204,6 +204,7 @@ export class HomeComponent implements OnInit , OnDestroy{
                 data=>{
                   this.userId=JSON.stringify(data.userId);
                   localStorage.setItem("userId",JSON.stringify(data.userId));
+                  this.loginStatus=true;
                   // sessionStorage.setItem("user",JSON.stringify(data));
                   // console.log("User : ",sessionStorage.getItem("userId"));
                 }
@@ -215,7 +216,8 @@ export class HomeComponent implements OnInit , OnDestroy{
               },
               );
               // alert('Login Successful');
-              window.location.reload();
+              // window.location.reload();
+              // this.ngOnInit();
             }
             else{
               console.log("failed  "+this.isValid);
