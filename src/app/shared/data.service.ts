@@ -52,6 +52,17 @@ export class DataService {
     );  
   }
 
+  getJoke(): Observable<SpoonText>{
+    return this.http.get<SpoonText>(this.spoonUrl+"/joke").pipe(
+        tap( data => {
+          console.log('Area',JSON.stringify(data));
+          this.progressBarService.stopLoading();
+          this.progressBarService.setSuccess();
+        }),
+        // catchError(this.handleError)
+    );  
+  }
+
   private handleError( err:HttpErrorResponse ){
     this.progressBarService.stopLoading();
     let errorMessage = '';
