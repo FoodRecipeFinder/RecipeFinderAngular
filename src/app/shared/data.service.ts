@@ -19,14 +19,14 @@ export class DataService {
   getArea(): Observable<Area[]>{
     this.progressBarService.startLoading();
     return this.http.get<Area[]>(this.mealDBUrl+"/list/a").pipe(
-        tap( data => console.log('Area',JSON.stringify(data))),
+        // tap( data => console.log('Area',JSON.stringify(data))),
         catchError(this.handleError)
     );
   }
 
   getCategory(): Observable<Category[]>{
     return this.http.get<Category[]>(this.mealDBUrl+"/list/c").pipe(
-        tap( data => console.log('Area',JSON.stringify(data))),
+        // tap( data => console.log('Area',JSON.stringify(data))),
         catchError(this.handleError)
     );
   }
@@ -34,7 +34,7 @@ export class DataService {
   getIngredients(): Observable<Ingredient[]>{
     return this.http.get<Ingredient[]>(this.mealDBUrl+"/list/i").pipe(
         tap( data => {
-          console.log('Area',JSON.stringify(data));
+          // console.log('Area',JSON.stringify(data));
           this.progressBarService.stopLoading();
         }),
         catchError(this.handleError)
@@ -44,7 +44,7 @@ export class DataService {
   getTrivia(): Observable<SpoonText>{
     return this.http.get<SpoonText>(this.spoonUrl+"/trivia").pipe(
         tap( data => {
-          console.log('Area',JSON.stringify(data));
+          // console.log('Area',JSON.stringify(data));
           this.progressBarService.stopLoading();
           this.progressBarService.setSuccess();
         }),
@@ -55,7 +55,7 @@ export class DataService {
   getJoke(): Observable<SpoonText>{
     return this.http.get<SpoonText>(this.spoonUrl+"/joke").pipe(
         tap( data => {
-          console.log('Area',JSON.stringify(data));
+          // console.log('Area',JSON.stringify(data));
           this.progressBarService.stopLoading();
           this.progressBarService.setSuccess();
         }),

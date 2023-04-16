@@ -20,7 +20,7 @@ export class RecipeService{
     getRecipes(): Observable<meals>{
         this.progressBarService.startLoading();
         return this.http.get<meals>(this.mealDBUrl+"/random").pipe(
-            tap( data => console.log('ALL',JSON.stringify(data))),
+            // tap( data => console.log('ALL',JSON.stringify(data))),
             catchError(this.handleError)
         );
     }
@@ -30,7 +30,7 @@ export class RecipeService{
         this.progressBarService.startLoading();
         return this.http.get<meals>(this.mealDBUrl+"/search?name="+name).pipe(
             tap( data => {
-                console.log('search for '+name,JSON.stringify(data));
+                // console.log('search for '+name,JSON.stringify(data));
                 this.progressBarService.stopLoading();
                 this.progressBarService.setSuccess();
             }),
@@ -42,7 +42,7 @@ export class RecipeService{
 
     getRecipeById(id:number): Observable<meals>{
         return this.http.get<meals>(this.mealDBUrl+"/lookup?id="+id).pipe(
-            tap( data => console.log('lookup for '+id,JSON.stringify(data))),
+            // tap( data => console.log('lookup for '+id,JSON.stringify(data))),
             catchError(this.handleError)
         );
     }
@@ -51,7 +51,7 @@ export class RecipeService{
         this.progressBarService.startLoading();
         return this.http.get<meals>(this.mealDBUrl+"/filter/"+type+"?name="+name).pipe(
             tap( data => {
-                console.log('filter for '+name,JSON.stringify(data));
+                // console.log('filter for '+name,JSON.stringify(data));
                 this.progressBarService.stopLoading();
                 this.progressBarService.setSuccess();
             }),
@@ -63,7 +63,7 @@ export class RecipeService{
         this.progressBarService.startLoading();
         return this.http.get<nutrition>(this.spoonUrl+"/guessNutrition?name="+name).pipe(
             tap( data => {
-                console.log('nutrition for '+name,JSON.stringify(data));
+                // console.log('nutrition for '+name,JSON.stringify(data));
                 this.progressBarService.stopLoading();
                 this.progressBarService.setSuccess();
             }),
