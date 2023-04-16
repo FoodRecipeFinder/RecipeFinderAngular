@@ -30,7 +30,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     SpinnerComponent,
     SpinnerBlackComponent,
     StepPipe
-    
   ],
   imports: [
     BrowserModule,
