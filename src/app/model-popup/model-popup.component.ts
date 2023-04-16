@@ -1,4 +1,5 @@
-   import { Component, OnInit ,Inject} from '@angular/core';
+   import { DIALOG_DATA } from '@angular/cdk/dialog';
+import { Component, OnInit ,Inject} from '@angular/core';
 import {MatDialogRef,  MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -8,19 +9,26 @@ import {MatDialogRef,  MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ModelPopupComponent implements OnInit{
 
-  text;
-
+  text;path;reload=true;
   constructor(@Inject(MAT_DIALOG_DATA) public data:any, 
     private dialogRef : MatDialogRef<ModelPopupComponent>){
-    this.text=data.text
+    this.text=data.text;
+    this.path= data.path;
+    this.reload=data.reload;
+
   }
 
   ngOnInit():void{
     this.dialogRef.updateSize('400px','120px');
     this.dialogRef.updatePosition({top:'0px'});
+    
   }
 
   close(){
+    
+    if(this.reload){
+      window.location.assign(this.path);
+    }
     this.dialogRef.close();
   }
 }

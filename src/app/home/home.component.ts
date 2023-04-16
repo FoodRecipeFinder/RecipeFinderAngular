@@ -211,7 +211,7 @@ export class HomeComponent implements OnInit , OnDestroy{
               )
               this.dialogRef.open(ModelPopupComponent,{
                 data : {
-                  text:'Login Successful'
+                  text:'Login Successful',reload:true,path:'home'
                 }
               },
               );
@@ -307,12 +307,12 @@ export class HomeComponent implements OnInit , OnDestroy{
             )
             this.dialogRef.open(ModelPopupComponent,{
               data : {
-                text:'Login Successful'
+                text:'Login Successful',path:'home',reload:true
               }
             },
             );
             // alert('Login Successful');
-            window.location.reload();
+            // window.location.reload();
           }
           else{
             this.dialogRef.open(ModelPopupComponent,{data : {text:'Invalid Otp'} },);
@@ -329,7 +329,7 @@ export class HomeComponent implements OnInit , OnDestroy{
     this.service.emailExists(this.userData.email).subscribe(
       res=>{
         if(res){
-          this.dialogRef.open(ModelPopupComponent,{data : {text:'EmailId already registered\nPlease use another emailId or login'} },);
+          this.dialogRef.open(ModelPopupComponent,{data : {text:'EmailId already registered...\nPlease use another emailId or login'} },);
           // alert('EmailId already registered\nPlease use another emailId or login');
         }
         else{
@@ -338,9 +338,10 @@ export class HomeComponent implements OnInit , OnDestroy{
             this.service.signUp(this.userData).subscribe(
               data=>{
                 if(data){
-                  this.dialogRef.open(ModelPopupComponent,{data : {text:'Signup successfu'} },);
+                  this.dialogRef.open(ModelPopupComponent,{data : {text:'Signup successful',reload:true,path:'home'} },);
                   // alert('Signup successful');
-                  window.location.reload()
+                  // window.location.reload()
+                  // this.ngOnInit();
                 }
                 else{
                   this.dialogRef.open(ModelPopupComponent,{data : {text:'Something went wrong!!! Please try again'} },);

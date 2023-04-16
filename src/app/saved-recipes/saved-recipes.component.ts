@@ -89,7 +89,7 @@ export class SavedRecipesComponent {
         this.service.removeRecipe(this.savedRecipeId).subscribe(
           res=>{
             if(res){
-              this.dialodRef.open(ModelPopupComponent,{data:{text:'Recipe removed'}})
+              this.dialodRef.open(ModelPopupComponent,{data:{text:'Recipe removed',reload:false}})
               // alert('Recipe removed');
               
               // window.location.reload();

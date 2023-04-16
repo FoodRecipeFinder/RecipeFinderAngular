@@ -24,15 +24,18 @@ export class HeaderComponent implements OnInit{
       if(this.userId!=null){
         this.status=true;
       }
-      setInterval(() => this.ngOnInit(), 10000);
+      // setInterval(() => this.ngOnInit(), 10000);
   }
   
   logout(){
     localStorage.clear();
-    this.dialogRef.open(ModelPopupComponent,{data : {text : 'Logged out successfully'}})
+
+    this.dialogRef.open(ModelPopupComponent,{data : {text : 'Logged out successfully', path:'home',reload:true}});
+    // window.location.assign('/home');
+    // this.ngOnInit();
     // alert('Logged out successfully')
     // this.route.navigate(['/home']);
-    window.location.assign('/home');
+    
   }
 
 }

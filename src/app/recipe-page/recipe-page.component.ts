@@ -113,7 +113,7 @@ export class RecipePageComponent implements OnInit , OnDestroy{
 
       this.dialogRef.open(ModelPopupComponent,{
         data : {
-          text:'Recipe Saved Successfully'
+          text:'Recipe Saved Successfully',reload:false
         }
       },
       );
