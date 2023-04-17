@@ -135,13 +135,13 @@
                   
                             
                             <div class="row">
-                              <div class="col-sm-4">
+                              <div class="col-4">
                               <button type="button" id="loginButton" (click)="userLoginByPassword()" class="btn btn-primary"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem">
                                 Login
                               </button>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-6">
                                 <button class="btn btn-outline-primary" (click)="loginwithotpForm()">Login with otp</button><br>
                               </div>
                             </div>
@@ -178,7 +178,7 @@
                           <!-- Password input -->
                           <div class="row">
                             <label class="form-label" for="form3Example4">One Time Password</label>
-                            <div class="col-sm-8">
+                            <div class="col-8">
                               <input type="number" #otppass=ngModel id="form3Example4" class="form-control" [(ngModel)]="otp" style="width: 90%;"
                               [ngModelOptions]="{ standalone: true }" placeholder="Enter OTP" required="true"/>
                               <div *ngIf="otppass.errors?.['required'] && otppass.touched">
@@ -187,20 +187,20 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-4">
                               <button class="btn btn-outline-primary" id="sendOtpButton" (click)="sendOtpFunction()">{{sendOtpButtonVar}}</button>
                             </div> 
                         </div>
               
                         <br>
                         <div class="row">
-                          <div class="col-sm-4">
+                          <div class="col-4">
                             <button type="button" id="loginByOtpButton" (click)="checkOtpLogin()" class="btn btn-primary"
                               style="padding-left: 2.5rem; padding-right: 2.5rem">
                               Login
                             </button>
                           </div>
-                          <div class="col-sm-8">
+                          <div class="col-8">
                             <button class="btn btn-outline-primary" (click)="loginwithpasswordForm()">Login with password</button><br>
                           </div>
                         </div>
