@@ -19,7 +19,7 @@ export class ModelPopupComponent implements OnInit{
   }
 
   ngOnInit():void{
-    this.dialogRef.updateSize('400px','120px');
+    this.dialogRef.updateSize('400px','130px');
     this.dialogRef.updatePosition({top:'0px'});
     
   }
