@@ -192,6 +192,9 @@ export class HomeComponent implements OnInit , OnDestroy{
   }
 
   userLoginByPassword(){
+
+    if(this.emailId!='' && this.password!=''){
+      
     let result = this.service.userLoginByPassword(this.emailId,this.password);
 
     this.service.emailExists(this.emailId).subscribe(
@@ -243,7 +246,13 @@ export class HomeComponent implements OnInit , OnDestroy{
         }
       }
     )
-    
+    }
+
+    else{
+      this.dialogRef.open(ModelPopupComponent,{
+        data:{ text: 'Both fields are mandatory'}
+      })
+    }
    
   }
 
@@ -326,32 +335,42 @@ export class HomeComponent implements OnInit , OnDestroy{
   confirmPassword:string='';
   
   userSignUp(){
-    this.service.emailExists(this.userData.email).subscribe(
-      res=>{
-        if(res){
-          this.dialogRef.open(ModelPopupComponent,{data : {text:'EmailId already registered...\nPlease use another emailId or login'} },);
-          // alert('EmailId already registered\nPlease use another emailId or login');
-        }
-        else{
-            console.log("user : "+JSON.stringify(this.userData));
-            // alert(JSON.stringify(this.userData));
-            this.service.signUp(this.userData).subscribe(
-              data=>{
-                if(data){
-                  this.dialogRef.open(ModelPopupComponent,{data : {text:'Signup successful',reload:true,path:'home'} },);
-                  // alert('Signup successful');
-                  // window.location.reload()
-                  // this.ngOnInit();
+
+    if(this.userData.email!='' || this.userData.password!=''){
+      this.service.emailExists(this.userData.email).subscribe(
+        res=>{
+          if(res){
+            this.dialogRef.open(ModelPopupComponent,{data : {text:'EmailId already registered...\nPlease use another emailId or login'} },);
+            // alert('EmailId already registered\nPlease use another emailId or login');
+          }
+          else{
+              console.log("user : "+JSON.stringify(this.userData));
+              // alert(JSON.stringify(this.userData));
+              this.service.signUp(this.userData).subscribe(
+                data=>{
+                  if(data){
+                    this.dialogRef.open(ModelPopupComponent,{data : {text:'Signup successful',reload:true,path:'home'} },);
+                    // alert('Signup successful');
+                    // window.location.reload()
+                    // this.ngOnInit();
+                  }
+                  else{
+                    this.dialogRef.open(ModelPopupComponent,{data : {text:'Something went wrong!!! Please try again'} },);
+                    // alert('Something went wrong!!! Please try again')
+                  }
                 }
-                else{
-                  this.dialogRef.open(ModelPopupComponent,{data : {text:'Something went wrong!!! Please try again'} },);
-                  // alert('Something went wrong!!! Please try again')
-                }
-              }
-            )
+              )
+          }
         }
-      }
-    )
+      )
+    }
+    else{
+      this.dialogRef.open(ModelPopupComponent,{
+        data:{ text: 'Both fields are mandatory'}
+      })
+    }
+
+    
   }
 
 
