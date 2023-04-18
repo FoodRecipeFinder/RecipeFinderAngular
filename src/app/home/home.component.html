@@ -6,30 +6,30 @@
     <div class="card-body">
         <div class="container">
             <div class="row">
-              <div class="col-md-1 align-self-center">Search by</div>
-                <div class="col-md-2">
+                <div class="col-md-1 align-self-center">Search by</div>
+                <div class="col-6 mt-1 mt-md-0 col-md-2">
                     <select class="form-control" [(ngModel)]="selectedData['a']" (ngModelChange)="getRecipeByData('a')">
                         <option value="" disabled selected>Cuisine</option>
                         <option *ngFor="let a of areas">{{a.strArea}}</option>
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-6 mt-1 mt-md-0 col-md-2">
                     <select class="form-control" [(ngModel)]="selectedData['c']" (ngModelChange)="getRecipeByData('c')">
                         <option value="" disabled selected>Category</option>
                         <option *ngFor="let c of categories">{{c.strCategory}}</option>
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-12 mt-1 mt-md-0 col-md-2">
                     <select class="form-control" [(ngModel)]="selectedData['i']" (ngModelChange)="getRecipeByData('i')">
                         <option value="" disabled selected>Main Ingredient</option>
                         <option *ngFor="let i of ingredients">{{i.strIngredient}}</option>
                     </select>
                 </div>
                 <!-- <div class="col-md-1 offset-md-2">Search:</div> -->
-                <div class="offset-md-2 col-md-2">
+                <div class="col-9 mt-1 offset-md-2 col-md-2 mt-md-0">
                     <input type="text" class="form-control" (keydown.enter)='searchRecipe()' [(ngModel)]="search" placeholder="Search" />
                 </div>
-                <div class="col-md-1">
+                <div class="col-3 mt-1 col-md-1  mt-md-0">
                     <button class="btn btn-outline-primary" (click)="searchRecipe()">Search</button>
                 </div>
                 <!-- <div class="col-md-1 offset-md-4">
@@ -137,11 +137,12 @@
                             <div class="row">
                               <div class="col-sm-4">
                               <button type="submit" id="loginButton" class="btn btn-primary"
+
                                 style="padding-left: 2.5rem; padding-right: 2.5rem">
                                 Login
                               </button>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-6">
                                 <button class="btn btn-outline-primary" (click)="loginwithotpForm()">Login with otp</button><br>
                               </div>
                             </div>
@@ -178,7 +179,7 @@
                           <!-- Password input -->
                           <div class="row">
                             <label class="form-label" for="form3Example4">One Time Password</label>
-                            <div class="col-sm-8">
+                            <div class="col-8">
                               <input type="number" #otppass=ngModel id="form3Example4" class="form-control" [(ngModel)]="otp" style="width: 90%;"
                               [ngModelOptions]="{ standalone: true }" placeholder="Enter OTP" required="true"/>
                               <div *ngIf="otppass.errors?.['required'] && otppass.touched">
@@ -187,20 +188,20 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-4">
                               <button class="btn btn-outline-primary" id="sendOtpButton" (click)="sendOtpFunction()">{{sendOtpButtonVar}}</button>
                             </div> 
                         </div>
               
                         <br>
                         <div class="row">
-                          <div class="col-sm-4">
+                          <div class="col-4">
                             <button type="button" id="loginByOtpButton" (click)="checkOtpLogin()" class="btn btn-primary"
                               style="padding-left: 2.5rem; padding-right: 2.5rem">
                               Login
                             </button>
                           </div>
-                          <div class="col-sm-8">
+                          <div class="col-8">
                             <button class="btn btn-outline-primary" (click)="loginwithpasswordForm()">Login with password</button><br>
                           </div>
                         </div>

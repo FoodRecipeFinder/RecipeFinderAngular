@@ -207,7 +207,7 @@ export class HomeComponent implements OnInit , OnDestroy{
                 data=>{
                   this.userId=JSON.stringify(data.userId);
                   localStorage.setItem("userId",JSON.stringify(data.userId));
-                  this.loginStatus=true;
+                  // this.loginStatus=true;
                   // sessionStorage.setItem("user",JSON.stringify(data));
                   // console.log("User : ",sessionStorage.getItem("userId"));
                 }

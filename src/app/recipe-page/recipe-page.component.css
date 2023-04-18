@@ -31,8 +31,8 @@ ul{
 }
 .recommend-card{
     display: inline-block;
-    width: 10%;
-    margin: 0 2% 0% 1%;
+    /* width: 16%; */
+    margin: 30px 10px 0% 0%;
 }
 .recommend-title{
     color: black;
@@ -51,4 +51,14 @@ hr {
     margin: 1em 0;
     padding: 0;
     transition: all 1s;
+}
+
+@media all and (max-width:800px){
+    .recommend-img{
+        display: none;
+    }
+    
+    .recommend-card{
+        margin-top: 10px;
+    }
 }

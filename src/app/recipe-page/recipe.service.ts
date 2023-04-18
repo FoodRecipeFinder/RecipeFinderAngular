@@ -65,9 +65,15 @@ export class RecipeService{
             tap( data => {
                 // console.log('nutrition for '+name,JSON.stringify(data));
                 this.progressBarService.stopLoading();
-                this.progressBarService.setSuccess();
+                if(data){
+                    this.progressBarService.setSuccess();
+                }else{
+                    this.progressBarService.setError();
+                }
+                
             }),
             catchError(this.handleError)
+            
         );
     }
 
