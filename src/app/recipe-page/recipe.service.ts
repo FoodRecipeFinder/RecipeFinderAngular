@@ -10,10 +10,12 @@ import { environment } from "../../environments/environment.development";
 @Injectable({
     providedIn:'root'
 })
+const mealDBURL = '/api/mealDB'
+const spoonacularURL ="/api/spoonacular"
 export class RecipeService{
 
-    private mealDBUrl = environment.envVar.springUrl+"/api/mealDB";
-    private spoonUrl = environment.envVar.springUrl+"/api/spoonacular";
+    private mealDBUrl = environment.envVar.springUrl+mealDBURL;
+    private spoonUrl = environment.envVar.springUrl+spoonacularURL;
 
     constructor(private http:HttpClient, private progressBarService: ProgressBarService){}
 
