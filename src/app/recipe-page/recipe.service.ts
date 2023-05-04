@@ -6,22 +6,19 @@ import { meals } from "./meal";
 import { nutrition, recipe } from "./recipe";
 import { environment } from "../../environments/environment.development";
 
+const mealDBUrl = environment.envVar.springUrl+'/api/mealDB'
+const spoonacularUrl =environment.envVar.springUrl+"/api/spoonacular"
 
 @Injectable({
     providedIn:'root'
 })
-const mealDBURL = '/api/mealDB'
-const spoonacularURL ="/api/spoonacular"
 export class RecipeService{
-
-    private mealDBUrl = environment.envVar.springUrl+mealDBURL;
-    private spoonUrl = environment.envVar.springUrl+spoonacularURL;
 
     constructor(private http:HttpClient, private progressBarService: ProgressBarService){}
 
     getRecipes(): Observable<meals>{
         this.progressBarService.startLoading();
-        return this.http.get<meals>(this.mealDBUrl+"/random").pipe(
+        return this.http.get<meals>(mealDBUrl+"/random").pipe(
             // tap( data => console.log('ALL',JSON.stringify(data))),
             catchError(this.handleError)
         );
@@ -30,7 +27,7 @@ export class RecipeService{
     //search
     getRecipesByName(name:string): Observable<meals>{
         this.progressBarService.startLoading();
-        return this.http.get<meals>(this.mealDBUrl+"/search?name="+name).pipe(
+        return this.http.get<meals>(mealDBUrl+"/search?name="+name).pipe(
             tap( data => {
                 // console.log('search for '+name,JSON.stringify(data));
                 this.progressBarService.stopLoading();
@@ -43,7 +40,7 @@ export class RecipeService{
     }
 
     getRecipeById(id:number): Observable<meals>{
-        return this.http.get<meals>(this.mealDBUrl+"/lookup?id="+id).pipe(
+        return this.http.get<meals>(mealDBUrl+"/lookup?id="+id).pipe(
             // tap( data => console.log('lookup for '+id,JSON.stringify(data))),
             catchError(this.handleError)
         );
@@ -51,7 +48,7 @@ export class RecipeService{
 
     getRecipesByData(type:string,name:string): Observable<meals>{
         this.progressBarService.startLoading();
-        return this.http.get<meals>(this.mealDBUrl+"/filter/"+type+"?name="+name).pipe(
+        return this.http.get<meals>(mealDBUrl+"/filter/"+type+"?name="+name).pipe(
             tap( data => {
                 // console.log('filter for '+name,JSON.stringify(data));
                 this.progressBarService.stopLoading();
@@ -63,7 +60,7 @@ export class RecipeService{
 
     getNutritionByName(name:string): Observable<nutrition>{
         this.progressBarService.startLoading();
-        return this.http.get<nutrition>(this.spoonUrl+"/guessNutrition?name="+name).pipe(
+        return this.http.get<nutrition>(spoonacularUrl+"/guessNutrition?name="+name).pipe(
             tap( data => {
                 // console.log('nutrition for '+name,JSON.stringify(data));
                 this.progressBarService.stopLoading();
