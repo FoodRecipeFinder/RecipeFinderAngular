@@ -2,7 +2,7 @@ export const environment = {
     prod: true,
     baseUrl: 'http://localhost:80',
     envVar: {
-        springUrl:'https://recipe-finder-spring.onrender.com:8080',
+        springUrl:'https://recipe-finder-angular.onrender.com',
         LOG_LEVEL: 'debug',
         version: 0
     }
