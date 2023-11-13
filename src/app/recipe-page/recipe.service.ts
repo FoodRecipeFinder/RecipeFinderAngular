@@ -4,7 +4,7 @@ import { Observable, catchError, tap, throwError } from "rxjs";
 import { ProgressBarService } from "../shared/progress-bar.service";
 import { meals } from "./meal";
 import { nutrition, recipe } from "./recipe";
-import { environment } from "../../environments/environment.development";
+import { environment } from "../../environments/environment";
 
 const mealDBUrl = environment.envVar.springUrl+'/api/mealDB'
 const spoonacularUrl =environment.envVar.springUrl+"/api/spoonacular"
