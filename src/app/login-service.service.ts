@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { savedRecipesDTO } from './saved-recipes/savedRecipesDTO';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
 import { User } from './shared/Dto';
 import { ReturnStatement } from '@angular/compiler';
 
