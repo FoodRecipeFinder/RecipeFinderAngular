@@ -1,8 +1,8 @@
 export const environment = {
     prod: true,
-    baseUrl: 'REPLACE WITH BASE URL HERE //DOESNOT WORK CURRENTLY',
+    baseUrl: 'http://localhost:80',
     envVar: {
-        springUrl:'REPLACE WITH SPRING URL HERE',
+        springUrl:'https://recipe-finder-spring.onrender.com:8080',
         LOG_LEVEL: 'debug',
         version: 0
     }
